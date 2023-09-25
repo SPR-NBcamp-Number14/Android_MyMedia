@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -24,15 +25,46 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+    buildFeatures{
+        viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
+    //gson
+    implementation'com.google.code.gson:gson:2.10.1'
+
+    //glide
+    implementation'com.github.bumptech.glide:glide:4.16.0'
+
+    //retrofit2
+    implementation'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //okhttp
+    implementation'com.squareup.okhttp3:okhttp:4.10.0'
+
+    // viewmodel 및 lifecycle
+    // 유튜브 api
+    implementation'com.android.identity:identity-credential:20230420'
+
+
+    //activityViewmodel
+    implementation'androidx.activity:activity-ktx:1.7.2'
+    implementation'androidx.fragment:fragment-ktx:1.6.1'
+
+    implementation'androidx.lifecycle:lifecycle-viewmodel-ktx:"2.5.1"'
+    implementation'androidx.lifecycle:lifecycle-viewmodel-compose:"2.5.1"'
+    implementation'androidx.lifecycle:lifecycle-livedata-ktx:"2.5.1"'
+
+    implementation'androidx.core:core-ktx:1.9.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
