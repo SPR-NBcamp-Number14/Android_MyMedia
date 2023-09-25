@@ -31,13 +31,13 @@ class ShortAdapter() : ListAdapter<PlayListModel, ShortAdapter.ViewHolder>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding
+        holder.bind(item)
     }
 
     class ViewHolder(
-        val binding: HomeShortItemBinding
+        private val binding: HomeShortItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() = with(binding) {
+        fun bind(item : PlayListModel) = with(binding) {
 
         }
     }

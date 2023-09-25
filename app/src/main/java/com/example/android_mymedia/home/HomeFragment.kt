@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_mymedia.databinding.HomeFragmentBinding
-import com.example.mymedia.home.HomeViewModel
 import com.example.android_mymedia.home.adapter.CategoryAdapter
 import com.example.android_mymedia.home.adapter.ShortAdapter
 
@@ -36,13 +36,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initView()
+        initViewModel()
     }
 
 
     private fun initView() = with(binding) {
         homeRvShortsList.adapter = shortAdapter
         homeRvCategoryList.adapter = categoryAdapter
-
     }
 
     private fun initViewModel() {

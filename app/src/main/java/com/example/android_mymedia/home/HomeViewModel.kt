@@ -1,4 +1,4 @@
-package com.example.mymedia.home
+package com.example.android_mymedia.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +20,7 @@ class HomeViewModel : ViewModel() {
                 add(PlayListModel(title = "1", description = "1", imgUrl = "1", datetime = "$i"))
             }
         }
-        _categoryList.value = mutableListOf<PlayListModel>().apply{
+        _categoryList.value = mutableListOf<PlayListModel>().apply {
             for (i in 0..4) {
                 add(PlayListModel(title = "1", description = "1", imgUrl = "1", datetime = "$i"))
             }
