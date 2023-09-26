@@ -43,9 +43,11 @@ class CategoryAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         private val context = binding.root.context
         fun bind(item: PlayListModel) = with(binding) {
-            Glide.with(context)
-                .load(item.imgUrl.toUri())
-                .into(homeCategoryItemIvThumbnail)
+            if (item.mediumImgUrl != null) {
+                Glide.with(context)
+                    .load(item.mediumImgUrl.toUri())
+                    .into(homeCategoryItemIvThumbnail)
+            }
         }
     }
 }
