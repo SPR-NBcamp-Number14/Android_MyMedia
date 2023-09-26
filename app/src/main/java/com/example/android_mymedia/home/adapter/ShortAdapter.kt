@@ -11,7 +11,7 @@ import com.example.android_mymedia.home.data.PlayListModel
 class ShortAdapter() : ListAdapter<PlayListModel, ShortAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() {
         override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
-            return oldItem.datetime == newItem.datetime
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
@@ -31,13 +31,13 @@ class ShortAdapter() : ListAdapter<PlayListModel, ShortAdapter.ViewHolder>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding
+        holder.bind(item)
     }
 
     class ViewHolder(
-        val binding: HomeShortItemBinding
+        private val binding: HomeShortItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() = with(binding) {
+        fun bind(item : PlayListModel) = with(binding) {
 
         }
     }

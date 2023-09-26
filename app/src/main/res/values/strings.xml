@@ -3,4 +3,5 @@
     <string name="menu_home">홈</string>
     <string name="menu_search">검색</string>
     <string name="menu_profile">상세 페이지</string>
+    <string name="all">All</string>
 </resources>

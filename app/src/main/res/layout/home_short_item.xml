@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="97dp"
-    android:layout_height="160dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:layout_width="102dp"
+    android:layout_height="165dp">
+
+    <ImageView
+        android:id="@+id/home_shorts_item_iv_thumbnail"
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/home_shorts_item_tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/home_shorts_item_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_shorts_item_iv_thumbnail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

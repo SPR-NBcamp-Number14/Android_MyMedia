@@ -13,7 +13,7 @@ class CategoryAdapter(
 ) : ListAdapter<PlayListModel, CategoryAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() {
         override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
-            return oldItem.datetime == newItem.datetime
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
@@ -33,13 +33,13 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding
+        holder.bind(item)
     }
 
     class ViewHolder(
-        val binding: HomeCategoryListBinding
+        private val binding: HomeCategoryListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() = with(binding) {
+        fun bind(item: PlayListModel) = with(binding) {
 
         }
     }
