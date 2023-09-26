@@ -17,9 +17,6 @@ class HomeFragment : Fragment() {
 
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
-
-
-
     private val viewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java]
     }
@@ -49,6 +46,7 @@ class HomeFragment : Fragment() {
     private fun initView() = with(binding) {
         homeRvShortsList.adapter = shortAdapter
         homeRvCategoryList.adapter = categoryAdapter
+
     }
 
     private fun initViewModel() {
