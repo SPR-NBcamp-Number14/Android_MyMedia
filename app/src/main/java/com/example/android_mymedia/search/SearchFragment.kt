@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_mymedia.databinding.SearchFragmentBinding
-import com.example.mymedia.home.HomeViewModel
+import com.example.android_mymedia.home.HomeViewModel
+
 
 class SearchFragment : Fragment() {
 

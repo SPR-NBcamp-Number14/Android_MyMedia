@@ -12,7 +12,7 @@ import com.example.android_mymedia.home.data.PlayListModel
 class SearchAdapter() : ListAdapter<PlayListModel, SearchAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() { //개념을 이해 해보면 좋을것
     override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
-        return oldItem.datetime == newItem.datetime //나중에 id 로
+        return oldItem.id == newItem.id //나중에 id 로
     }
 
     override fun areContentsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
