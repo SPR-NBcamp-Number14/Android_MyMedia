@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_mymedia.databinding.SearchFragmentBinding
-import com.example.android_mymedia.home.adapter.SearchAdapter
-import com.example.android_mymedia.home.adapter.ShortAdapter
 import com.example.mymedia.home.HomeViewModel
 
 class SearchFragment : Fragment() {
@@ -34,15 +33,18 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initView()
-        return binding.root
     }
 
     private fun initView() = with(binding) {
         searchRecyclerview.adapter = searchAdapter
-
-
+        searchRecyclerview.layoutManager=LinearLayoutManager(requireContext())
     }
     private fun initViewModel() {
         with(viewModel) {
