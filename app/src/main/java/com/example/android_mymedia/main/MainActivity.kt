@@ -39,12 +39,15 @@ class MainActivity : AppCompatActivity() {
 
         //네비게이션 바 선택 이벤트
         mainNvMenu.setOnItemSelectedListener { menuItem ->
+
             when (menuItem.itemId) {
                 R.id.menu_home -> mainViewpager.currentItem = 0
                 R.id.menu_search -> mainViewpager.currentItem = 1
                 R.id.menu_profile -> mainViewpager.currentItem = 2
             }
+
             true
         }
     }
+
 }

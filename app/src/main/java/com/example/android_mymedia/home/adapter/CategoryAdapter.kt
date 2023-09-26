@@ -2,10 +2,12 @@ package com.example.android_mymedia.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android_mymedia.databinding.HomeCategoryListBinding
+import com.bumptech.glide.Glide
+import com.example.android_mymedia.databinding.HomeCategoryItemBinding
 import com.example.android_mymedia.home.data.PlayListModel
 
 class CategoryAdapter(
@@ -25,7 +27,7 @@ class CategoryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            HomeCategoryListBinding.inflate(
+            HomeCategoryItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -37,10 +39,13 @@ class CategoryAdapter(
     }
 
     class ViewHolder(
-        private val binding: HomeCategoryListBinding
+        private val binding: HomeCategoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        private val context = binding.root.context
         fun bind(item: PlayListModel) = with(binding) {
-
+            Glide.with(context)
+                .load(item.imgUrl.toUri())
+                .into(homeCategoryItemIvThumbnail)
         }
     }
 }
