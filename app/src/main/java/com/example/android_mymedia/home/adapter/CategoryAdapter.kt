@@ -13,7 +13,7 @@ class CategoryAdapter(
 ) : ListAdapter<PlayListModel, CategoryAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() {
         override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
-            return oldItem.datetime == newItem.datetime
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
