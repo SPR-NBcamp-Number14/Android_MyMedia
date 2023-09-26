@@ -4,6 +4,6 @@ import com.example.android_mymedia.home.data.PlayListModel
 
 interface HomeRepository {
 
-    suspend fun getShortsList()
+    suspend fun getPopularVideo(): List<PlayListModel>
 
 }
