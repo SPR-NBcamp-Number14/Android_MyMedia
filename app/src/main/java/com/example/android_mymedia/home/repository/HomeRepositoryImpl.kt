@@ -1,8 +1,6 @@
 package com.example.android_mymedia.home.repository
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.android_mymedia.home.data.PlayListModel
-import com.example.android_mymedia.home.data.VideoSnippet
 import com.example.android_mymedia.retrofit.RetrofitClient
 
 class HomeRepositoryImpl : HomeRepository {
@@ -13,9 +11,11 @@ class HomeRepositoryImpl : HomeRepository {
         val resultList = responseVideoList.map { videoItem ->
             PlayListModel(
                 id = videoItem.id,
-                imgUrl = videoItem.snippet.thumbnails.medium.url,
+                defaultImgUrl = videoItem.snippet.thumbnails.default.url,
+                mediumImgUrl = videoItem.snippet.thumbnails.medium.url,
+                highImgUrl = videoItem.snippet.thumbnails.high.url,
                 title = videoItem.snippet.title,
-                description =videoItem.snippet.description
+                description = videoItem.snippet.description
             )
         }
 

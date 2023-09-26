@@ -23,7 +23,7 @@ class HomeViewModel(
     init {
         _shortsList.value = mutableListOf<PlayListModel>().apply {
             for (i in 0..4) {
-                add(PlayListModel(id = "$i", title = "1", description = "1", imgUrl = "1"))
+                add(PlayListModel(id = "$i", title = "1", description = "1"))
             }
         }
 
