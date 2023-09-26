@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.android_mymedia.BuildConfig
 import com.example.android_mymedia.databinding.HomeFragmentBinding
 import com.example.android_mymedia.home.adapter.CategoryAdapter
 import com.example.android_mymedia.home.adapter.ShortAdapter
@@ -16,6 +17,9 @@ class HomeFragment : Fragment() {
 
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
+
+
+
     private val viewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java]
     }
