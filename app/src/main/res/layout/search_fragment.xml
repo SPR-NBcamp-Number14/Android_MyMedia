@@ -7,7 +7,7 @@
     tools:context=".search.SearchFragment">
 
     <EditText
-        android:id="@+id/dialog_name"
+        android:id="@+id/ed_search"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -30,18 +30,18 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/ic_search_frag_img"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_name"
-        app:layout_constraintStart_toStartOf="@+id/dialog_name"
-        app:layout_constraintTop_toTopOf="@+id/dialog_name" />
+        app:layout_constraintBottom_toBottomOf="@+id/ed_search"
+        app:layout_constraintStart_toStartOf="@+id/ed_search"
+        app:layout_constraintTop_toTopOf="@+id/ed_search" />
 
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/ic_search_close"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_name"
-        app:layout_constraintEnd_toEndOf="@+id/dialog_name"
-        app:layout_constraintTop_toTopOf="@+id/dialog_name" />
+        app:layout_constraintBottom_toBottomOf="@+id/ed_search"
+        app:layout_constraintEnd_toEndOf="@+id/ed_search"
+        app:layout_constraintTop_toTopOf="@+id/ed_search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_recyclerView"
@@ -52,7 +52,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_name"
+        app:layout_constraintTop_toBottomOf="@+id/ed_search"
         tools:itemCount="6"
         tools:listitem="@layout/search_item_category" />
 
