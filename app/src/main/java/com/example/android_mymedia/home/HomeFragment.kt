@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.android_mymedia.BuildConfig
 import com.example.android_mymedia.databinding.HomeFragmentBinding
 import com.example.mymedia.home.HomeViewModel
 import com.example.android_mymedia.home.adapter.CategoryAdapter
