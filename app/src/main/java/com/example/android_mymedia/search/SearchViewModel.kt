@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.android_mymedia.home.HomeViewModel
-import com.example.android_mymedia.home.data.PlayListModel
-import com.example.android_mymedia.home.repository.HomeRepositoryImpl
 import com.example.android_mymedia.searchdata.SearchListModel
 import com.example.android_mymedia.searchrepository.SearchRepository
 import com.example.android_mymedia.searchrepository.SearchRepositoryImpl
@@ -19,15 +16,18 @@ class SearchViewModel(
 
 
     private val _searchsList: MutableLiveData<List<SearchListModel>> = MutableLiveData()
-    val shortsList: LiveData<List<SearchListModel>> get() = _searchsList
+    val searchList: LiveData<List<SearchListModel>> get() = _searchsList
+    private var currentQuery: String = ""
 
-
-
-
-
-
-
+    fun searchWithQuery(query: String) {
+        currentQuery = query
+        viewModelScope.launch {
+            val list = repository.getSearch(currentQuery)
+            _searchsList.value = list
+        }
     }
+
+}
 
 
 class SearchViewModelFactory(

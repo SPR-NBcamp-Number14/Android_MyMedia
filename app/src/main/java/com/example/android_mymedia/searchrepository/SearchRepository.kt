@@ -4,5 +4,5 @@ import com.example.android_mymedia.searchdata.SearchListModel
 
 interface SearchRepository {
 
-    suspend fun getSearch(): List<SearchListModel>
+    suspend fun getSearch(query: String): List<SearchListModel>
 }

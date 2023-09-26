@@ -2,17 +2,16 @@ package com.example.android_mymedia.searchrepository
 
 import com.example.android_mymedia.retrofit.RetrofitClient
 import com.example.android_mymedia.searchdata.SearchListModel
-import com.example.android_mymedia.searchdata.Searched
 
-class SearchRepositoryImpl : SearchRepository{
+class SearchRepositoryImpl : SearchRepository {
 
-    override suspend fun getSearch(): List<SearchListModel> {
-        val responseSearch = RetrofitClient.api.getSearch()
+    override suspend fun getSearch(query: String): List<SearchListModel> {
+        val responseSearch = RetrofitClient.api.getSearch(q = query) // 검색어를 전달
         val responseSearchList = responseSearch.items
 
         val resultList = responseSearchList.map { searchItem ->
             SearchListModel(
-                id =searchItem.id.searchId,
+                id = searchItem.id.videoId,
                 imgUrl = searchItem.snippet.thumbnails.default.url,
                 title = searchItem.snippet.title,
                 description = searchItem.snippet.description
@@ -20,6 +19,5 @@ class SearchRepositoryImpl : SearchRepository{
         }
 
         return resultList
-
     }
-    }
+}

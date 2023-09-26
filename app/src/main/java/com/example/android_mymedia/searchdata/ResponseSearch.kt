@@ -1,5 +1,10 @@
 package com.example.android_mymedia.searchdata
 
+import com.example.android_mymedia.home.data.Key
+import com.example.android_mymedia.home.data.Localized
+import com.example.android_mymedia.home.data.ThumbnailDetails
+import com.example.android_mymedia.home.data.VideoSnippet
+
 
 data class ResponseSearch(
     val items: List<SearchItem>
@@ -7,11 +12,11 @@ data class ResponseSearch(
 
 data class SearchItem(
     val kind: String,
-    val id: Searched,
+    val id: Videoid,
     val snippet: SearchSnippet,
 )
-data class Searched(
-    val searchId:String,
+data class Videoid(
+    val videoId:String,
 )
 
 data class SearchSnippet(
