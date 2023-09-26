@@ -18,7 +18,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
+        ViewModelProvider(this,SearchViewModelFactory())[SearchViewModel::class.java]
     }
     private val searchAdapter by lazy {
         SearchAdapter()
@@ -39,7 +39,8 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initViewModel()
+        initView()
     }
 
     private fun initView() = with(binding) {
