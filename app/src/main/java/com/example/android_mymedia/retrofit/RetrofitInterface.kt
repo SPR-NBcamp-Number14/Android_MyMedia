@@ -12,7 +12,7 @@ interface RetrofitInterface {
         @Query("part") part: String = "id,snippet",
         @Query("chart") chart: String = "mostPopular",
         @Query("regionCode") region: String = "KR",
-        @Query("maxResults") maxResults: Int = 20,// 20정도가 적당
+        @Query("maxResults") maxResults: Int = 20, // 20정도가 적당
         @Query("key") apiKey:String = API
     ): ResponseVideo
 
