@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bumptech.glide.Glide
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
 import com.example.android_mymedia.home.data.PlayListModel
@@ -43,9 +44,8 @@ class VideoAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         private val context = binding.root.context
         fun bind(item: PlayListModel) = with(binding) {
-            Glide.with(context)
-                .load(item.mediumImgUrl.toUri())
-                .into(homeVideoItemIvThumbnail)
+            homeVideoItemIvThumbnail.load(item.mediumImgUrl)
+
             homeVideoItemTvTitle.text = item.title
             homeVideoItemChannelTitle.text = item.channelTitle
             homeVideoIteViewCount.text = "조회수 ${item.viewCount.toString()}회"
