@@ -21,6 +21,8 @@ class HomeViewModel(
     private val _pageToken: MutableLiveData<String?> = MutableLiveData()
     val pageToken: LiveData<String?> get() = _pageToken
 
+
+
     init {
         setPopularList() //이걸 주석하고 디버깅을 하면 홈 화면 API 사용 x
     }
@@ -53,6 +55,7 @@ class HomeViewModel(
             _categoryList.value = currentList
         }
     }
+
 }
 
 
