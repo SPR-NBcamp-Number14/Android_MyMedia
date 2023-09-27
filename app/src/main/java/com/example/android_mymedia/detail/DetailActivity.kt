@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
             intent.getParcelableExtra(Unit.OBJECT_DATA, PlayListModel::class.java)
         }
         else {
-            intent.getParcelableExtra<PlayListModel>("data")
+            intent.getParcelableExtra<PlayListModel>(Unit.OBJECT_DATA)
         }
     }
 
@@ -59,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.detailBtnShare.setOnClickListener {
-            shareUrl("testData")
+            shareUrl(data!!.videoUrl)
         }
     }
 
