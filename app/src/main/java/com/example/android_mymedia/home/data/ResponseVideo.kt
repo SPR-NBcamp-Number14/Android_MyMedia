@@ -70,5 +70,5 @@ data class VideoStatistics(
     @SerializedName("likeCount")
     val likeCount: String,
     @SerializedName("commentCount")
-    val commentCount: Long
+    val commentCount: String
 )
