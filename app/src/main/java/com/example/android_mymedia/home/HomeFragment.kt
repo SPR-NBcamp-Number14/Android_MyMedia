@@ -57,28 +57,45 @@ class HomeFragment : Fragment() {
 
                 val isAtEndOfList = visibleItemCount + firstVisibleItemPosition >= totalItemCount
 
+//                !homeRvVideoList.canScrollHorizontally(1)
+
                 if (isAtEndOfList) {
 
-                    getNextPage()
+                    getNextPage() // 주석 시 홈 api 사용 x
 
                 }
             }
         })
-
-
     }
 
     private fun initViewModel() {
         with(viewModel) {
             categoryList.observe(viewLifecycleOwner) {
-                videoAdapter.submitList(it)
-                Log.d("리스폰", categoryList.value.toString())
+                if (it != null) {
+                    videoAdapter.submitList(it.toList())
+                    Log.d("리스폰", categoryList.value.toString())
+                }
             }
             pageToken.observe(viewLifecycleOwner) {
-                Log.d("토큰", pageToken.value.toString())
+                if (it != null) {
+                    Log.d("토큰", pageToken.value.toString())
+                    //호출 횟수 테스트용 observe
+                }
+            }
+            loading.observe(viewLifecycleOwner) {
+                if (it != null) { // 뷰 모델이 자바로 구성되어 있기 때문. 그런 경우 방어 코딩을 해줘야함.
+
+                    if (it == true) {
+                        //로딩 화면을 구현할 예정
+                    } else {
+                        //로딩 화면을 지우는 로직 구성 해야함
+                    }
+
+                }
             }
         }
     }
+
     private fun getNextPage() = with(viewModel) {
         viewModel.setNextPage()
     }

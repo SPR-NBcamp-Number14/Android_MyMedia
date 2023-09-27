@@ -45,9 +45,10 @@ class VideoAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         private val context = binding.root.context
         fun bind(item: PlayListModel) = with(binding) {
-
-            val viewCount = setViewCountFormat(item.viewCount)
-
+            var viewCount = item.viewCount
+            if (item.viewCount != null) {
+                viewCount = setViewCountFormat(item.viewCount)
+            }
             homeVideoItemIvThumbnail.load(item.mediumImgUrl)
 
             homeVideoItemTvTitle.text = item.title
