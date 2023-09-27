@@ -15,7 +15,7 @@ class VideoAdapter(
 ) : ListAdapter<PlayListModel, VideoAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() {
         override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
-            return oldItem.videoUrl == newItem.videoUrl
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {

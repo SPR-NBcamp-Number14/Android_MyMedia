@@ -1,6 +1,7 @@
 package com.example.android_mymedia.home.data
 
 data class ResponseVideo(
+    val nextPageToken: String,
     val items: List<VideoItem>
 )
 

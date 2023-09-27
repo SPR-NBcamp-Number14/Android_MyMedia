@@ -63,7 +63,7 @@ class HomeFragment : Fragment() {
                 Log.d("리스폰", categoryList.value.toString())
             }
             pageToken.observe(viewLifecycleOwner) {
-
+                Log.d("토큰", pageToken.value.toString())
             }
         }
     }

@@ -5,8 +5,9 @@ import com.example.android_mymedia.home.data.PlayListModel
 import com.example.android_mymedia.retrofit.RetrofitClient
 
 class HomeRepositoryImpl : HomeRepository {
-    override suspend fun getPopularVideo(): List<PlayListModel> {
+    override suspend fun getPopularVideo(): Pair<List<PlayListModel>, String> {
         val responseVideo = RetrofitClient.api.getVideo()
+        val nextToken = responseVideo.nextPageToken
         val responseVideoList = responseVideo.items
         Log.d("리스폰.tag", responseVideo.items[0].snippet.tags.toString())
         val resultList = responseVideoList.map { videoItem ->
@@ -25,9 +26,7 @@ class HomeRepositoryImpl : HomeRepository {
                 commentCount = videoItem.statistics.commentCount
             )
         }
-
-        return resultList
-
+        return Pair(resultList, nextToken)
     }
 
 

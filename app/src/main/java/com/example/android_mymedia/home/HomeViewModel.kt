@@ -26,11 +26,13 @@ class HomeViewModel(
 
     private fun setPopularList() { //이걸 주석하고 디버깅을 하면 홈 화면 API 사
         viewModelScope.launch {
-            val list = repository.getPopularVideo()
+            val list = repository.getPopularVideo().first
+            val nextToken = repository.getPopularVideo().second
             var currentList = categoryList.value.orEmpty().toMutableList()
 
             currentList = list.toMutableList()
 
+            _pageToken.value = nextToken
             _categoryList.value = currentList
         }
     }
