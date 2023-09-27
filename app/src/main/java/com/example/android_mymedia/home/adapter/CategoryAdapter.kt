@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.android_mymedia.databinding.HomeCategoryItemBinding
+import com.example.android_mymedia.databinding.HomeVideoItemBinding
 import com.example.android_mymedia.home.data.PlayListModel
 
-class CategoryAdapter(
+class VideoAdapter(
 
-) : ListAdapter<PlayListModel, CategoryAdapter.ViewHolder>(
+) : ListAdapter<PlayListModel, VideoAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() {
         override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
             return oldItem.id == newItem.id
@@ -27,7 +27,7 @@ class CategoryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            HomeCategoryItemBinding.inflate(
+            HomeVideoItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -39,15 +39,17 @@ class CategoryAdapter(
     }
 
     class ViewHolder(
-        private val binding: HomeCategoryItemBinding
+        private val binding: HomeVideoItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         private val context = binding.root.context
         fun bind(item: PlayListModel) = with(binding) {
-            if (item.mediumImgUrl != null) {
-                Glide.with(context)
-                    .load(item.mediumImgUrl.toUri())
-                    .into(homeCategoryItemIvThumbnail)
-            }
+            Glide.with(context)
+                .load(item.mediumImgUrl.toUri())
+                .into(homeVideoItemIvThumbnail)
+            homeVideoItemTvTitle.text = item.title
+            homeVideoItemChannelTitle.text = item.channelTitle
+            homeVideoIteViewCount.text = "조회수 ${item.viewCount.toString()}회"
+            homeVideoItemTvDatetime.text = item.publishAt
         }
     }
 }
