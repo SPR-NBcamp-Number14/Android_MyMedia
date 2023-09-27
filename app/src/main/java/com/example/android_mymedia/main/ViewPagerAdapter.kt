@@ -17,7 +17,7 @@ class ViewPagerAdapter(
 
     init {
         fragments.apply {
-            add(DetailFragment())
+            add(HomeFragment())
             add(SearchFragment())
             add(MyVideoFragment())
         }
