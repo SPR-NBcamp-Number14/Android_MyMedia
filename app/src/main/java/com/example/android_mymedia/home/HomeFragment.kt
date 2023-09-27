@@ -1,16 +1,16 @@
 package com.example.android_mymedia.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.android_mymedia.BuildConfig
 import com.example.android_mymedia.databinding.HomeFragmentBinding
-import com.example.mymedia.home.HomeViewModel
 import com.example.android_mymedia.home.adapter.CategoryAdapter
 import com.example.android_mymedia.home.adapter.ShortAdapter
+import com.example.android_mymedia.retrofit.RetrofitClient
 
 
 class HomeFragment : Fragment() {
@@ -18,7 +18,8 @@ class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
+        ViewModelProvider(this,
+            HomeViewModelFactory())[HomeViewModel::class.java]
     }
     private val shortAdapter by lazy {
         ShortAdapter()
@@ -37,6 +38,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initView()
+        initViewModel()
     }
 
 
@@ -53,6 +57,7 @@ class HomeFragment : Fragment() {
             }
             categoryList.observe(viewLifecycleOwner) {
                 categoryAdapter.submitList(it)
+                Log.d("리스폰",categoryList.value.toString())
             }
         }
     }
