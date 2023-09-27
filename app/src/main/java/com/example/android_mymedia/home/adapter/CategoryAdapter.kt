@@ -1,5 +1,6 @@
 package com.example.android_mymedia.home.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
+import com.example.android_mymedia.detail.DetailActivity
 import com.example.android_mymedia.home.data.PlayListModel
 
 class VideoAdapter(
@@ -50,6 +52,13 @@ class VideoAdapter(
             homeVideoItemChannelTitle.text = item.channelTitle
             homeVideoIteViewCount.text = "조회수 ${item.viewCount.toString()}회"
             homeVideoItemTvDatetime.text = item.publishAt
+
+            itemView.setOnClickListener {
+                Intent(context, DetailActivity::class.java).apply {
+                    putExtra("data", item)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run { context.startActivity(this) }
+            }
         }
     }
 }

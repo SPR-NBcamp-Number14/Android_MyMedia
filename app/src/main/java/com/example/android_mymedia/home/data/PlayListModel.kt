@@ -1,5 +1,9 @@
 package com.example.android_mymedia.home.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class PlayListModel(
     val id: String, //동영상 고유 id
     val videoUrl: String, //동영상 url
@@ -13,5 +17,4 @@ data class PlayListModel(
     val viewCount: Long, // 동영상 조회수
     val likeCount: String, // 동영상 좋아요 수
     val commentCount: Long, // 동영상 댓글 수
-
-)
+) : Parcelable
