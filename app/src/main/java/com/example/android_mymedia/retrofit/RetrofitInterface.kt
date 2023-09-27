@@ -3,7 +3,6 @@ package com.example.android_mymedia.retrofit
 import com.example.android_mymedia.home.data.ResponseVideo
 import com.example.android_mymedia.searchdata.ResponseSearch
 import com.example.android_mymedia.unit.Unit.API
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,9 +12,9 @@ interface RetrofitInterface {
         @Query("part") part: String = "id,snippet,statistics",
         @Query("chart") chart: String = "mostPopular",
         @Query("regionCode") region: String = "KR",
-        @Query("maxResults") maxResults: Int = 20, // 20정도가 적당
+        @Query("maxResults") maxResults: Int = 10, // 20정도가 적당
         @Query("key") apiKey: String = API,
-        @Query("nextToken") nextToken: String? = null
+        @Query("pageToken") pageToken: String? = null
     ): ResponseVideo
 
     @GET("search")
