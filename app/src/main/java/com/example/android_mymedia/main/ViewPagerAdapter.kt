@@ -3,6 +3,7 @@ package com.example.android_mymedia.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.android_mymedia.detail.DetailFragment
 import com.example.android_mymedia.home.HomeFragment
 import com.example.android_mymedia.my_video.MyVideoFragment
 import com.example.android_mymedia.search.SearchFragment
