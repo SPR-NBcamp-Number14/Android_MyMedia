@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:backgroundTint="#00FFFFFF">
+
+    <ImageView
+        android:id="@+id/home_video_item_iv_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_dummy_gundam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="@id/home_video_item_tv_title"
+        app:layout_constraintTop_toTopOf="@id/home_video_item_tv_title" />
+
+    <TextView
+        android:id="@+id/home_video_item_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="제목"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_video_item_iv_thumbnail" />
+
+    <TextView
+        android:id="@+id/home_video_item_channel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="채널명"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_video_item_tv_title" />
+
+    <TextView
+        android:id="@+id/home_video_ite_viewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="조회수"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/home_video_item_channel_title"
+        app:layout_constraintTop_toBottomOf="@id/home_video_item_tv_title" />
+
+    <TextView
+        android:id="@+id/home_video_item_tv_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="게시일"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/home_video_ite_viewCount"
+        app:layout_constraintTop_toBottomOf="@id/home_video_item_tv_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

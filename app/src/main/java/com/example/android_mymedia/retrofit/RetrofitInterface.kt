@@ -10,11 +10,12 @@ import retrofit2.http.Query
 interface RetrofitInterface {
     @GET("videos")
     suspend fun getVideo(
-        @Query("part") part: String = "id,snippet",
+        @Query("part") part: String = "id,snippet,statistics",
         @Query("chart") chart: String = "mostPopular",
         @Query("regionCode") region: String = "KR",
         @Query("maxResults") maxResults: Int = 20, // 20정도가 적당
-        @Query("key") apiKey:String = API
+        @Query("key") apiKey:String = API,
+        @Query("pageToken") pageToken: String? = null
     ): ResponseVideo
 
     @GET("search")
@@ -27,6 +28,6 @@ interface RetrofitInterface {
         @Query("videoType") videoType: String ="any",
         @Query("type") type : String ="channel,playlist,video",
         @Query("key") apiKey:String = API
-    ):ResponseSearch
+    ): ResponseSearch
 
 }

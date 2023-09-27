@@ -14,21 +14,14 @@ class HomeViewModel(
     private val repository: HomeRepository
 ) : ViewModel() {
 
-    private val _shortsList: MutableLiveData<List<PlayListModel>> = MutableLiveData()
-    val shortsList: LiveData<List<PlayListModel>> get() = _shortsList
-
     private val _categoryList: MutableLiveData<List<PlayListModel>> = MutableLiveData()
     val categoryList: LiveData<List<PlayListModel>> get() = _categoryList
 
+    private val _pageToken: MutableLiveData<String> = MutableLiveData()
+    val pageToken: LiveData<String> get() = _pageToken
+
     init {
-        _shortsList.value = mutableListOf<PlayListModel>().apply {
-            for (i in 0..4) {
-                add(PlayListModel(id = "$i", title = "1", description = "1", imgUrl = "1"))
-            }
-        }
-
         setPopularList()
-
     }
 
     private fun setPopularList() { //이걸 주석하고 디버깅을 하면 홈 화면 API 사
