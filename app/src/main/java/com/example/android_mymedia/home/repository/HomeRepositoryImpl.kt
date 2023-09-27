@@ -1,6 +1,5 @@
 package com.example.android_mymedia.home.repository
 
-import android.util.Log
 import com.example.android_mymedia.home.data.PlayListModel
 import com.example.android_mymedia.retrofit.RetrofitClient
 
@@ -9,7 +8,7 @@ class HomeRepositoryImpl(
 ) : HomeRepository {
     override suspend fun getPopularVideo(token: String?): Pair<List<PlayListModel>, String> {
 
-        val responseVideo = client.api.getVideo(nextToken = token)
+        val responseVideo = client.api.getVideo(pageToken = token)
         val nextToken = responseVideo.nextPageToken
         val responseVideoList = responseVideo.items
 
