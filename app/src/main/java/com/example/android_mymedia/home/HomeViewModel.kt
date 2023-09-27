@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.android_mymedia.home.data.PlayListModel
 import com.example.android_mymedia.home.repository.HomeRepository
 import com.example.android_mymedia.home.repository.HomeRepositoryImpl
+import com.example.android_mymedia.retrofit.RetrofitClient
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -21,13 +22,15 @@ class HomeViewModel(
     val pageToken: LiveData<String> get() = _pageToken
 
     init {
-        setPopularList()
+        setPopularList() //이걸 주석하고 디버깅을 하면 홈 화면 API 사용 x
     }
 
-    private fun setPopularList() { //이걸 주석하고 디버깅을 하면 홈 화면 API 사
+    private fun setPopularList() {
         viewModelScope.launch {
-            val list = repository.getPopularVideo().first
-            val nextToken = repository.getPopularVideo().second
+            val token = pageToken.value
+            val response = repository.getPopularVideo(token)
+            val list = response.first
+            val nextToken = response.second
             var currentList = categoryList.value.orEmpty().toMutableList()
 
             currentList = list.toMutableList()
@@ -46,7 +49,7 @@ class HomeViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(
-                HomeRepositoryImpl()
+                HomeRepositoryImpl(RetrofitClient)
             ) as T
         } else {
             throw IllegalArgumentException("Not found ViewModel class.")
