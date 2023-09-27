@@ -15,8 +15,8 @@ class HomeViewModel(
     private val repository: HomeRepository
 ) : ViewModel() {
 
-    private val _categoryList: MutableLiveData<List<PlayListModel>> = MutableLiveData()
-    val categoryList: LiveData<List<PlayListModel>> get() = _categoryList
+    private val _categoryList: MutableLiveData<Set<PlayListModel>> = MutableLiveData()
+    val categoryList: LiveData<Set<PlayListModel>> get() = _categoryList
 
     private val _pageToken: MutableLiveData<String?> = MutableLiveData()
     val pageToken: LiveData<String?> get() = _pageToken
@@ -25,7 +25,7 @@ class HomeViewModel(
     val loading: LiveData<Boolean> get() = _loading
 
     init {
-        setPopularList() //이걸 주석하고 디버깅을 하면 홈 화면 API 사용 x
+        setPopularList() //이걸 주석한 뒤 디버깅을 하면 홈 화면 API 사용 x
     }
 
     private fun setPopularList() {
@@ -34,9 +34,9 @@ class HomeViewModel(
             val response = repository.getPopularVideo(token)
             val list = response.first
             val nextToken = response.second
-            var currentList = categoryList.value.orEmpty().toMutableList()
+            var currentList = categoryList.value.orEmpty().toMutableSet()
 
-            currentList = list.toMutableList()
+            currentList = list.toMutableSet()
 
             _pageToken.value = nextToken
             _categoryList.value = currentList
@@ -45,15 +45,20 @@ class HomeViewModel(
 
     fun setNextPage() {
         viewModelScope.launch {
+            if (_loading.value == true) return@launch
+            _loading.value = true
+
             val token = pageToken.value
             val response = repository.getPopularVideo(token)
             val list = response.first
             val nextToken = response.second
-            val currentList = categoryList.value.orEmpty().toMutableList().apply {
+            val currentList = categoryList.value.orEmpty().toMutableSet().apply {
                 addAll(list)
             }
             _pageToken.value = nextToken
             _categoryList.value = currentList
+
+            _loading.value = false
         }
     }
 
