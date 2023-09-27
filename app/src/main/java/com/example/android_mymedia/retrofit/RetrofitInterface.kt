@@ -14,19 +14,20 @@ interface RetrofitInterface {
         @Query("chart") chart: String = "mostPopular",
         @Query("regionCode") region: String = "KR",
         @Query("maxResults") maxResults: Int = 20, // 20정도가 적당
-        @Query("key") apiKey:String = API
+        @Query("key") apiKey: String = API,
+        @Query("nextToken") nextToken: String? = null
     ): ResponseVideo
 
     @GET("search")
     suspend fun getSearch(
-        @Query("part") part : String ="snippet",
+        @Query("part") part: String = "snippet",
         @Query("regionCode") region: String = "KR",
         @Query("maxResults") maxResults: Int = 20,
-        @Query("order") order:String = "date",
-        @Query("q") q:String,
-        @Query("videoType") videoType: String ="any",
-        @Query("type") type : String ="channel,playlist,video",
-        @Query("key") apiKey:String = API
-    ):ResponseSearch
+        @Query("order") order: String = "date",
+        @Query("q") q: String,
+        @Query("videoType") videoType: String = "any",
+        @Query("type") type: String = "channel,playlist,video",
+        @Query("key") apiKey: String = API
+    ): ResponseSearch
 
 }
