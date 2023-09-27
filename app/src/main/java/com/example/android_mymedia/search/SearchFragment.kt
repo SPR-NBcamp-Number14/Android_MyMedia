@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_mymedia.databinding.SearchFragmentBinding
 import com.example.android_mymedia.home.HomeViewModel
@@ -18,7 +19,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
+        ViewModelProvider(this,SearchViewModelFactory())[SearchViewModel::class.java]
     }
     private val searchAdapter by lazy {
         SearchAdapter()
@@ -34,12 +35,20 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
+
+        binding.searchBtn.setOnClickListener {
+            val query = binding.edSearch.text.toString()
+            viewModel.searchWithQuery(query)
+
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initViewModel()
+        initView()
     }
 
     private fun initView() = with(binding) {
@@ -48,7 +57,7 @@ class SearchFragment : Fragment() {
     }
     private fun initViewModel() {
         with(viewModel) {
-            shortsList.observe(viewLifecycleOwner) {
+            searchList.observe(viewLifecycleOwner) {
                 searchAdapter.submitList(it)
             }
 
