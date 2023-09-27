@@ -67,6 +67,9 @@ class HomeFragment : Fragment() {
             }
         }
     }
+    private fun getNextPage() = with(viewModel) {
+        viewModel.setNextPage()
+    }
 
 
 }

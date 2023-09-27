@@ -40,12 +40,18 @@ class HomeViewModel(
         }
     }
 
-    private fun setToken(setToken: String?) {
-        var token = pageToken.value
-
-        token = setToken
-
-        _pageToken.value = token
+    fun setNextPage() {
+        viewModelScope.launch {
+            val token = pageToken.value
+            val response = repository.getPopularVideo(token)
+            val list = response.first
+            val nextToken = response.second
+            val currentList = categoryList.value.orEmpty().toMutableList().apply {
+                addAll(list)
+            }
+            _pageToken.value = nextToken
+            _categoryList.value = currentList
+        }
     }
 }
 
