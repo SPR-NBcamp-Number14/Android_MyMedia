@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.DetailActivityBinding
 import com.example.android_mymedia.home.data.PlayListModel
+import com.example.android_mymedia.unit.Unit
 
 class DetailActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class DetailActivity : AppCompatActivity() {
 
     private val data: PlayListModel? by lazy {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("data", PlayListModel::class.java)
+            intent.getParcelableExtra(Unit.OBJECT_DATA, PlayListModel::class.java)
         }
         else {
             intent.getParcelableExtra<PlayListModel>("data")

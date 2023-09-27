@@ -10,6 +10,7 @@ import coil.load
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
 import com.example.android_mymedia.detail.DetailActivity
 import com.example.android_mymedia.home.data.PlayListModel
+import com.example.android_mymedia.unit.Unit
 import com.example.android_mymedia.unit.Unit.setViewCountFormat
 
 class VideoAdapter(
@@ -57,7 +58,7 @@ class VideoAdapter(
 
             itemView.setOnClickListener {
                 Intent(context, DetailActivity::class.java).apply {
-                    putExtra("data", item)
+                    putExtra(Unit.OBJECT_DATA, item)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { context.startActivity(this) }
             }

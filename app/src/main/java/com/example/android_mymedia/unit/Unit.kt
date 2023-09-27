@@ -6,6 +6,8 @@ object Unit {
     const val API = BuildConfig.YOUTUBE_API_KEY
     const val BASE_URL = "https://www.googleapis.com/youtube/v3/"
 
+    const val OBJECT_DATA = "item_object"
+
     fun setViewCountFormat(count: String): String {
         var resultFormat: String = ""
 
