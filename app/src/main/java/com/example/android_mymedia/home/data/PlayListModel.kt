@@ -10,7 +10,7 @@ data class PlayListModel(
     val title: String, // 동영상 제목
     val channelTitle: String, // 게시 채널 제목
     val description: String, // 동영상 상세 내용
-    val viewCount: Long, // 동영상 조회수
+    val viewCount: String, // 동영상 조회수
     val likeCount: String, // 동영상 좋아요 수
     val commentCount: Long, // 동영상 댓글 수
 

@@ -66,7 +66,7 @@ data class Localized(
 
 data class VideoStatistics(
     @SerializedName("viewCount")
-    val viewCount: Long,
+    val viewCount: String,
     @SerializedName("likeCount")
     val likeCount: String,
     @SerializedName("commentCount")

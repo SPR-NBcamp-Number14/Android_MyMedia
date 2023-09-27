@@ -18,8 +18,8 @@ class HomeViewModel(
     private val _categoryList: MutableLiveData<List<PlayListModel>> = MutableLiveData()
     val categoryList: LiveData<List<PlayListModel>> get() = _categoryList
 
-    private val _pageToken: MutableLiveData<String> = MutableLiveData()
-    val pageToken: LiveData<String> get() = _pageToken
+    private val _pageToken: MutableLiveData<String?> = MutableLiveData()
+    val pageToken: LiveData<String?> get() = _pageToken
 
     init {
         setPopularList() //이걸 주석하고 디버깅을 하면 홈 화면 API 사용 x
@@ -38,6 +38,14 @@ class HomeViewModel(
             _pageToken.value = nextToken
             _categoryList.value = currentList
         }
+    }
+
+    private fun setToken(setToken: String?) {
+        var token = pageToken.value
+
+        token = setToken
+
+        _pageToken.value = token
     }
 }
 
