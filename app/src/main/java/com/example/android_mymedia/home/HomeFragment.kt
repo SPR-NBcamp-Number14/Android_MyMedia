@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android_mymedia.databinding.HomeFragmentBinding
-import com.example.android_mymedia.home.adapter.CategoryAdapter
-import com.example.android_mymedia.home.adapter.ShortAdapter
-import com.example.android_mymedia.retrofit.RetrofitClient
+import com.example.android_mymedia.home.adapter.VideoAdapter
 
 
 class HomeFragment : Fragment() {
@@ -18,14 +17,14 @@ class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(this,
-            HomeViewModelFactory())[HomeViewModel::class.java]
+        ViewModelProvider(
+            this,
+            HomeViewModelFactory()
+        )[HomeViewModel::class.java]
     }
-    private val shortAdapter by lazy {
-        ShortAdapter()
-    }
-    private val categoryAdapter by lazy {
-        CategoryAdapter()
+
+    private val videoAdapter by lazy {
+        VideoAdapter()
     }
 
     override fun onCreateView(
@@ -45,19 +44,26 @@ class HomeFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
-        homeRvShortsList.adapter = shortAdapter
-        homeRvCategoryList.adapter = categoryAdapter
+        homeRvVideoList.adapter = videoAdapter
+        homeRvVideoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = homeRvVideoList.layoutManager
+
+
+            }
+        })
 
     }
 
     private fun initViewModel() {
         with(viewModel) {
-            shortsList.observe(viewLifecycleOwner) {
-                shortAdapter.submitList(it)
-            }
             categoryList.observe(viewLifecycleOwner) {
-                categoryAdapter.submitList(it)
-                Log.d("리스폰",categoryList.value.toString())
+                videoAdapter.submitList(it)
+                Log.d("리스폰", categoryList.value.toString())
+            }
+            pageToken.observe(viewLifecycleOwner) {
+                Log.d("토큰", pageToken.value.toString())
             }
         }
     }
