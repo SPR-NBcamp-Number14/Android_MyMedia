@@ -49,6 +49,8 @@ android {
 }
 
 dependencies {
+    //
+    implementation'io.coil-kt:coil:2.4.0'
     //youtube v3 data
     implementation 'com.google.apis:google-api-services-youtube:v3-rev20230904-2.0.0'
     //gson

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_mymedia.databinding.HomeFragmentBinding
 import com.example.android_mymedia.home.adapter.VideoAdapter
@@ -48,11 +49,22 @@ class HomeFragment : Fragment() {
         homeRvVideoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = homeRvVideoList.layoutManager
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
 
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
+                val isAtEndOfList = visibleItemCount + firstVisibleItemPosition >= totalItemCount
+
+                if (isAtEndOfList) {
+
+                    getNextPage()
+
+                }
             }
         })
+
 
     }
 
@@ -66,6 +78,9 @@ class HomeFragment : Fragment() {
                 Log.d("토큰", pageToken.value.toString())
             }
         }
+    }
+    private fun getNextPage() = with(viewModel) {
+        viewModel.setNextPage()
     }
 
 

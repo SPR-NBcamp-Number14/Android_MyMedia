@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.android_mymedia.home.data.PlayListModel
 import com.example.android_mymedia.home.repository.HomeRepository
 import com.example.android_mymedia.home.repository.HomeRepositoryImpl
+import com.example.android_mymedia.retrofit.RetrofitClient
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -17,17 +18,22 @@ class HomeViewModel(
     private val _categoryList: MutableLiveData<List<PlayListModel>> = MutableLiveData()
     val categoryList: LiveData<List<PlayListModel>> get() = _categoryList
 
-    private val _pageToken: MutableLiveData<String> = MutableLiveData()
-    val pageToken: LiveData<String> get() = _pageToken
+    private val _pageToken: MutableLiveData<String?> = MutableLiveData()
+    val pageToken: LiveData<String?> get() = _pageToken
+
+    private val _loading: MutableLiveData<Boolean> = MutableLiveData()
+    val loading: LiveData<Boolean> get() = _loading
 
     init {
-        setPopularList()
+        setPopularList() //이걸 주석하고 디버깅을 하면 홈 화면 API 사용 x
     }
 
-    private fun setPopularList() { //이걸 주석하고 디버깅을 하면 홈 화면 API 사
+    private fun setPopularList() {
         viewModelScope.launch {
-            val list = repository.getPopularVideo().first
-            val nextToken = repository.getPopularVideo().second
+            val token = pageToken.value
+            val response = repository.getPopularVideo(token)
+            val list = response.first
+            val nextToken = response.second
             var currentList = categoryList.value.orEmpty().toMutableList()
 
             currentList = list.toMutableList()
@@ -36,6 +42,21 @@ class HomeViewModel(
             _categoryList.value = currentList
         }
     }
+
+    fun setNextPage() {
+        viewModelScope.launch {
+            val token = pageToken.value
+            val response = repository.getPopularVideo(token)
+            val list = response.first
+            val nextToken = response.second
+            val currentList = categoryList.value.orEmpty().toMutableList().apply {
+                addAll(list)
+            }
+            _pageToken.value = nextToken
+            _categoryList.value = currentList
+        }
+    }
+
 }
 
 
@@ -46,7 +67,7 @@ class HomeViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(
-                HomeRepositoryImpl()
+                HomeRepositoryImpl(RetrofitClient)
             ) as T
         } else {
             throw IllegalArgumentException("Not found ViewModel class.")
