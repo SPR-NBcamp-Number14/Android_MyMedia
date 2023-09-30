@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android_mymedia.databinding.HomeBtnItemBinding
 import com.example.android_mymedia.home.data.ButtonModel
 
-class BtnsAdapter : ListAdapter<ButtonModel, BtnsAdapter.ViewHolder>(
+class BtnsAdapter(
+    private val onClicked: (ButtonModel) -> Unit
+) : ListAdapter<ButtonModel, BtnsAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<ButtonModel>() {
         override fun areItemsTheSame(oldItem: ButtonModel, newItem: ButtonModel): Boolean {
             return oldItem.category == newItem.category
@@ -24,8 +26,9 @@ class BtnsAdapter : ListAdapter<ButtonModel, BtnsAdapter.ViewHolder>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             HomeBtnItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
+                LayoutInflater.from(parent.context), parent, false,
+            ),
+            onClicked
         )
     }
 
@@ -36,10 +39,15 @@ class BtnsAdapter : ListAdapter<ButtonModel, BtnsAdapter.ViewHolder>(
     }
 
     class ViewHolder(
-        private val binding: HomeBtnItemBinding
+        private val binding: HomeBtnItemBinding,
+        private val onClicked: (ButtonModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ButtonModel) = with(binding) {
             homeCategoryTvTitle.text = item.btnTitle
+
+            homeCategoryTvTitle.setOnClickListener {
+                onClicked(item)
+            }
         }
     }
 }

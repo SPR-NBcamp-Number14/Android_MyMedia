@@ -17,8 +17,8 @@ class HomeViewModel(
 ) : ViewModel() {
 
     //메인 뷰 리스트
-    private val _categoryList: MutableLiveData<Set<PlayListModel>> = MutableLiveData()
-    val categoryList: LiveData<Set<PlayListModel>> get() = _categoryList
+    private val _categoryList: MutableLiveData<Set<PlayListModel>?> = MutableLiveData()
+    val categoryList: LiveData<Set<PlayListModel>?> get() = _categoryList
 
     //다음 페이지 판안 여부 토큰
 
@@ -33,6 +33,11 @@ class HomeViewModel(
     //로딩 여부
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
+
+    //카테고리
+    private val _liveCategory: MutableLiveData<String?> = MutableLiveData()
+    val liveCategory: LiveData<String?> get() = _liveCategory
+
     val loading: LiveData<Boolean> get() = _loading
 
     init {
@@ -43,7 +48,7 @@ class HomeViewModel(
     private fun setPopularList() {
         viewModelScope.launch {
             val token = pageToken.value
-            val response = repository.getPopularVideo(token)
+            val response = repository.getPopularVideo(token, "0")
             val list = response.first
             val nextToken = response.second
             var currentList = categoryList.value.orEmpty().toMutableSet()
@@ -57,9 +62,8 @@ class HomeViewModel(
 
     private fun setBtnList() {
         viewModelScope.launch {
-            var currentList = btnList.value.orEmpty().toMutableList()
-            val responseList = repository.getCategory()
-
+            val currentList = btnList.value.orEmpty().toMutableList()
+            val responseList = repository.getCategory() ?: return@launch
 
             currentList.addAll(responseList)
 
@@ -73,9 +77,12 @@ class HomeViewModel(
             _loading.value = true
 
             val token = pageToken.value
-            val response = repository.getPopularVideo(token)
+            val category = liveCategory.value.orEmpty()
+
+            val response = repository.getPopularVideo(token, category)
             val list = response.first
             val nextToken = response.second
+
             val currentList = categoryList.value.orEmpty().toMutableSet().apply {
                 addAll(list)
             }
@@ -83,6 +90,29 @@ class HomeViewModel(
             _categoryList.value = currentList
 
             _loading.value = false
+        }
+    }
+
+    fun setCategory(category: String) {
+        viewModelScope.launch {
+            val token = pageToken.value
+            val response = repository.getPopularVideo(token, category)
+
+            val list = response.first
+            val nextToken = response.second
+            var currentList = categoryList.value.orEmpty().toMutableSet()
+            var updateCategory = liveCategory.value.orEmpty()
+
+            currentList = list.toMutableSet()
+            updateCategory = category
+
+            _pageToken.value = null
+            _categoryList.value = null
+            _liveCategory.value = null
+
+            _pageToken.value = nextToken
+            _categoryList.value = currentList
+            _liveCategory.value = updateCategory
         }
     }
 

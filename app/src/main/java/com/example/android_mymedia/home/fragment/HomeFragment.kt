@@ -31,7 +31,12 @@ class HomeFragment : Fragment() {
         VideoAdapter()
     }
     private val btnsAdapter by lazy {
-        BtnsAdapter()
+        BtnsAdapter(
+            onClicked = { item ->
+                setCategory(item.category)
+
+            }
+        )
     }
 
     override fun onCreateView(
@@ -68,8 +73,6 @@ class HomeFragment : Fragment() {
 
                 val isAtEndOfList = visibleItemCount + firstVisibleItemPosition >= totalItemCount
 
-//                !homeRvVideoList.canScrollHorizontally(1)
-
                 if (isAtEndOfList) {
 
                     getNextPage() // 주석 시 홈 api 사용 x
@@ -98,6 +101,7 @@ class HomeFragment : Fragment() {
             btnList.observe(viewLifecycleOwner) {
                 if (it != null) {
                     btnsAdapter.submitList(it)
+                    Log.d("버튼.뷰모델.리스트", it.toString())
                 }
             }
 
@@ -106,6 +110,10 @@ class HomeFragment : Fragment() {
 
     private fun getNextPage() = with(viewModel) {
         viewModel.setNextPage()
+    }
+
+    private fun setCategory(category: String) = with(viewModel) {
+        viewModel.setCategory(category)
     }
 
 
