@@ -57,7 +57,7 @@ class HomeRepositoryImpl(
 
                     )
                 }
-
+        // 여행하고 교육이 404 에러가 남
         Log.d("버튼.리스트", resultList.toString())
 
         return resultList
