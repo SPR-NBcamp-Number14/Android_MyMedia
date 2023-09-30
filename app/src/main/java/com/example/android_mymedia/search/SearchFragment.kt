@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_mymedia.databinding.SearchFragmentBinding
-import com.example.android_mymedia.home.HomeViewModel
 
 
 class SearchFragment : Fragment() {
