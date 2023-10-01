@@ -46,7 +46,9 @@ class HomeRepositoryImpl(
             responseList
                 .filter { categoryItems ->
 
-                    categoryItems.snippet.assignable
+                    categoryItems.snippet.assignable &&
+                            categoryItems.id != "19" &&
+                            categoryItems.id != "27"
 
                 }
                 .map { categoryItems ->
@@ -57,7 +59,7 @@ class HomeRepositoryImpl(
 
                     )
                 }
-        // 여행하고 교육이 404 에러가 남
+        // 여행하고 교육이 404 에러가 남(카테고리 19,27)
         // 음악 클릭 시 굉장히 텀이 김
         Log.d("버튼.리스트", resultList.toString())
 
