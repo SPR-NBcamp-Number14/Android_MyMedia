@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import coil.load
-import com.bumptech.glide.Glide
 import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.DetailActivityBinding
-import com.example.android_mymedia.home.data.PlayListModel
 
 
 class DetailActivity : AppCompatActivity() {

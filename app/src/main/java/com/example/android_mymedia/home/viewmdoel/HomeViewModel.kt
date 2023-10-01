@@ -30,18 +30,25 @@ class HomeViewModel(
 
     val btnList: LiveData<List<ButtonModel>> get() = _btnList
 
-    //로딩 여부
-
-    private val _loading: MutableLiveData<Boolean> = MutableLiveData()
-
     //카테고리
     private val _liveCategory: MutableLiveData<String?> = MutableLiveData()
     val liveCategory: LiveData<String?> get() = _liveCategory
 
+    //로딩 여부
+
+    private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> get() = _loading
 
     init {
         setPopularList() //이걸 주석한 뒤 디버깅을 하면 홈 화면 API 사용 x
+        _btnList.value = mutableListOf<ButtonModel>().apply {
+            add(
+                ButtonModel(
+                    category = "0",
+                    btnTitle = "최신 인기"
+                )
+            )
+        }
         setBtnList()
     }
 
