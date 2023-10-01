@@ -3,21 +3,21 @@ package com.example.android_mymedia.home.data
 import com.google.gson.annotations.SerializedName
 
 data class ResponseCategory(
-    val kind: String,
-    val etag: String,
+    @SerializedName("items")
     val items: List<VideoCategory>
 )
 
 data class VideoCategory(
-    val kind: String,
-    val etag: String,
+    @SerializedName("id")
     val id: String,
+    @SerializedName("snippet")
     val snippet: CategorySnippet
 )
 
 data class CategorySnippet(
+    @SerializedName("title")
     val title: String,
-    val assignable: Boolean,
-    val channelId: String
+    @SerializedName("assignable")
+    val assignable: Boolean
 )
 
