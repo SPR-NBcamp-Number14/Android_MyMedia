@@ -64,6 +64,7 @@ class HomeViewModel(
 
             _pageToken.value = nextToken
             _categoryList.value = currentList
+            _liveCategory.value = "0"
         }
     }
 
