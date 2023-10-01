@@ -1,4 +1,4 @@
-package com.example.android_mymedia.home.data
+package com.example.android_mymedia.home.data.apiresponse
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,8 +1,8 @@
 package com.example.android_mymedia.home.repository
 
 import android.util.Log
-import com.example.android_mymedia.home.data.ButtonModel
-import com.example.android_mymedia.home.data.PlayListModel
+import com.example.android_mymedia.home.data.model.ButtonModel
+import com.example.android_mymedia.home.data.model.PlayListModel
 import com.example.android_mymedia.retrofit.RetrofitClient
 
 class HomeRepositoryImpl(

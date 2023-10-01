@@ -1,8 +1,7 @@
-package com.example.android_mymedia.home.data
+package com.example.android_mymedia.home.data.model
 
 import android.os.Parcelable
 import com.example.android_mymedia.detail.DetailModel
-import com.example.android_mymedia.searchdata.SearchListModel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

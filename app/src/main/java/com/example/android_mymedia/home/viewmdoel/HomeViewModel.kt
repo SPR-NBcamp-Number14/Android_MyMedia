@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.android_mymedia.home.data.ButtonModel
-import com.example.android_mymedia.home.data.PlayListModel
+import com.example.android_mymedia.home.data.model.ButtonModel
+import com.example.android_mymedia.home.data.model.PlayListModel
 import com.example.android_mymedia.home.repository.HomeRepository
 import com.example.android_mymedia.home.repository.HomeRepositoryImpl
 import com.example.android_mymedia.retrofit.RetrofitClient

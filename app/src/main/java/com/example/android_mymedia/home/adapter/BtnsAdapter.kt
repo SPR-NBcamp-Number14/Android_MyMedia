@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_mymedia.databinding.HomeBtnItemBinding
-import com.example.android_mymedia.home.data.ButtonModel
+import com.example.android_mymedia.home.data.model.ButtonModel
 
 class BtnsAdapter(
     private val onClicked: (ButtonModel) -> Unit
