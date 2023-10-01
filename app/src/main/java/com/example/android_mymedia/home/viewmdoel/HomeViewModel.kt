@@ -103,6 +103,7 @@ class HomeViewModel(
 
     fun setCategory(category: String) {
         viewModelScope.launch {
+            _pageToken.value = null
             val token = pageToken.value
             val response = repository.getPopularVideo(token, category)
 
@@ -114,7 +115,7 @@ class HomeViewModel(
             currentList = list.toMutableSet()
             updateCategory = category
 
-            _pageToken.value = null
+
             _categoryList.value = null
             _liveCategory.value = null
 
