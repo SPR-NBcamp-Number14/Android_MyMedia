@@ -124,7 +124,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.detailBtnShare.setOnClickListener {
-            shareUrl("testData")
+            shareUrl(data!!.videoUrl)
         }
     }
 
