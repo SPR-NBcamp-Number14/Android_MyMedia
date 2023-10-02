@@ -64,6 +64,7 @@ class HomeViewModel(
 
             _pageToken.value = nextToken
             _categoryList.value = currentList
+            _liveCategory.value = "0"
         }
     }
 
@@ -102,10 +103,6 @@ class HomeViewModel(
 
     fun setCategory(category: String) {
         viewModelScope.launch {
-            _loading.value = true
-            _pageToken.value = null
-            _categoryList.value = null
-            _liveCategory.value = null
 
             val token = pageToken.value
             val response = repository.getPopularVideo(token, category)
@@ -121,8 +118,13 @@ class HomeViewModel(
             _pageToken.value = nextToken
             _categoryList.value = currentList
             _liveCategory.value = updateCategory
-
         }
+    }
+
+    fun reset(){
+        _pageToken.value = null
+        _categoryList.value = null
+        _liveCategory.value = null
     }
 
 }

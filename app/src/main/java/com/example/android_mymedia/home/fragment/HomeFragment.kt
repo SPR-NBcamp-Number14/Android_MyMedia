@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private val btnsAdapter by lazy {
         BtnsAdapter(
             onClicked = { item ->
+                reset()
                 setCategory(item.category)
             }
         )
@@ -88,6 +89,7 @@ class HomeFragment : Fragment() {
                 if (it != null) {
                     videoAdapter.submitList(it.toList())
                     Log.d("리스폰", categoryList.value.toString())
+                    binding.homeRvVideoList.scrollToPosition(0)
                 }
             }
             pageToken.observe(viewLifecycleOwner) {
@@ -114,5 +116,8 @@ class HomeFragment : Fragment() {
         viewModel.setCategory(category)
     }
 
+    private fun reset() = with(viewModel){
+        viewModel.reset()
+    }
 
 }
