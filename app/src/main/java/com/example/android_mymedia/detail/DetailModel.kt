@@ -9,5 +9,6 @@ data class DetailModel(
     val imgUrl: String,
     val title: String,
     val channelTitle: String,
-    val description: String
+    val description: String,
+    val isBooked: Boolean = false
 ) : Parcelable
