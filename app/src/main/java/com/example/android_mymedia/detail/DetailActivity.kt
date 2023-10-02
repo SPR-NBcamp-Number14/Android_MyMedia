@@ -11,7 +11,6 @@ import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.DetailActivityBinding
 import com.example.android_mymedia.room.VideoDatabase
 import com.example.android_mymedia.room.VideoEntity
-import com.example.android_mymedia.unit.Unit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
