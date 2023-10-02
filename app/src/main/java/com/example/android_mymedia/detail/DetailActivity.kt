@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.bumptech.glide.Glide
+import coil.load
 import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.DetailActivityBinding
 import com.example.android_mymedia.home.data.PlayListModel
@@ -19,6 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DetailActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_DATA = "extra_data"
+    }
 
     private lateinit var binding: DetailActivityBinding
 
@@ -80,46 +83,32 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
-        Glide.with(this)
-            .load(data!!.highImgUrl)
-            .into(binding.detailIvThumbnail)
 
-        binding.detailTvTitle.text = data!!.title
-        binding.detailTvChannelName.text = data!!.channelTitle
-        binding.detailTvDescription.text = data!!.description
+        detailIvThumbnail.load(loadData.highImgUrl)
+
+        detailTvTitle.text = loadData.title
+        detailTvChannelName.text = loadData.channelTitle
+        detailTvDescription.text = loadData.description
+
+
 
 
         binding.detailBtnLike.setOnClickListener {
             if (isLiked) {
                 binding.detailBtnLike.setBackgroundResource(R.drawable.confirm_like_button)
-                binding.detailBtnLike.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_heart_drawable,
-                    0
-                )
+                binding.detailBtnLike.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_heart_drawable, 0)
                 Toast.makeText(this, "좋아요 리스트에서 삭제되었습니다.", Toast.LENGTH_LONG).show()
-                CoroutineScope(Dispatchers.IO).launch {
-                    db!!.VideoDAO().deleteVideoById(data!!.id)
-                }
-            } else {
-                binding.detailBtnLike.setBackgroundResource(R.drawable.clicked_confirm_like_button)
-                binding.detailBtnLike.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_heart_filled_drawable,
-                    0
-                )
-                Toast.makeText(this, "좋아요 리스트에 추가되었습니다.", Toast.LENGTH_LONG).show()
-                CoroutineScope(Dispatchers.IO).launch {
-                    db!!.VideoDAO().insertVideo(videoInfo)
-                }
-                isLiked = !isLiked
             }
+            else {
+                binding.detailBtnLike.setBackgroundResource(R.drawable.clicked_confirm_like_button)
+                binding.detailBtnLike.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_heart_filled_drawable, 0)
+                Toast.makeText(this, "좋아요 리스트에 추가되었습니다.", Toast.LENGTH_LONG).show()
+            }
+            isLiked = !isLiked
         }
 
         binding.detailBtnShare.setOnClickListener {
-            shareUrl(data!!.videoUrl)
+            shareUrl("testData")
         }
     }
 

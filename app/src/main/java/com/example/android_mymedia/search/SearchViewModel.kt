@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.android_mymedia.searchdata.SearchListModel
-import com.example.android_mymedia.searchrepository.SearchRepository
-import com.example.android_mymedia.searchrepository.SearchRepositoryImpl
+import com.example.android_mymedia.retrofit.RetrofitClient
+import com.example.android_mymedia.search.searchdata.SearchListModel
+import com.example.android_mymedia.search.searchrepository.SearchRepository
+import com.example.android_mymedia.search.searchrepository.SearchRepositoryImpl
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -15,8 +16,8 @@ class SearchViewModel(
 ) : ViewModel() {
 
 
-    private val _searchsList: MutableLiveData<List<SearchListModel>> = MutableLiveData()
-    val searchList: LiveData<List<SearchListModel>> get() = _searchsList
+    private val _searchsList: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
+    val searchList: MutableLiveData<List<SearchListModel>?> get() = _searchsList
     private var currentQuery: String = ""
 
     fun searchWithQuery(query: String) {
@@ -37,7 +38,7 @@ class SearchViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
             return SearchViewModel(
-                SearchRepositoryImpl()
+                SearchRepositoryImpl(RetrofitClient)
             ) as T
         } else {
             throw IllegalArgumentException("Not found ViewModel class.")

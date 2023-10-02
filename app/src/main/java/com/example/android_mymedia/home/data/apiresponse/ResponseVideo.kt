@@ -1,4 +1,4 @@
-package com.example.android_mymedia.home.data
+package com.example.android_mymedia.home.data.apiresponse
 
 import com.google.gson.annotations.SerializedName
 
@@ -66,9 +66,9 @@ data class Localized(
 
 data class VideoStatistics(
     @SerializedName("viewCount")
-    val viewCount: String,
+    val viewCount: String?  = "지원되지 않음",
     @SerializedName("likeCount")
-    val likeCount: String,
+    val likeCount: String? = "지원되지 않음",
     @SerializedName("commentCount")
-    val commentCount: String
+    val commentCount: String? = "지원되지 않음"
 )
