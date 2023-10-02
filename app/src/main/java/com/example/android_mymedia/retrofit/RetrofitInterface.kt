@@ -1,7 +1,8 @@
 package com.example.android_mymedia.retrofit
 
-import com.example.android_mymedia.home.data.apiresponse.ResponseCategory
-import com.example.android_mymedia.home.data.apiresponse.ResponseVideo
+
+import com.example.android_mymedia.home.data.api.ResponseCategory
+import com.example.android_mymedia.home.data.api.ResponseVideo
 import com.example.android_mymedia.search.searchdata.ResponseSearch
 import com.example.android_mymedia.unit.Unit.API
 import retrofit2.http.GET
