@@ -37,7 +37,7 @@ class SearchAdapter() : ListAdapter<SearchListModel, SearchAdapter.ViewHolder>(
         fun bind(item: SearchListModel) = with(binding){
             Glide.with(context)
                 .load(item.imgUrl.toUri())
-                .into(myVideoImage)
+                .into(searchImage)
         }
     }
 

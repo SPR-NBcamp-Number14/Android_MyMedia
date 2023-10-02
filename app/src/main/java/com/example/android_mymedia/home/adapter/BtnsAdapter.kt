@@ -43,6 +43,7 @@ class BtnsAdapter(
         private val binding: HomeBtnItemBinding,
         private val onClicked: (ButtonModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: ButtonModel) = with(binding) {
             homeCategoryTvTitle.text = item.btnTitle
 
@@ -57,5 +58,6 @@ class BtnsAdapter(
 
             }
         }
+
     }
 }
