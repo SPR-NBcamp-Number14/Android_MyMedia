@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android_mymedia.databinding.SearchItemListBinding
-import com.example.android_mymedia.searchdata.SearchListModel
+import com.example.android_mymedia.search.searchdata.SearchListModel
 
 
 class SearchAdapter() : ListAdapter<SearchListModel, SearchAdapter.ViewHolder>(
@@ -38,6 +38,11 @@ class SearchAdapter() : ListAdapter<SearchListModel, SearchAdapter.ViewHolder>(
             Glide.with(context)
                 .load(item.imgUrl.toUri())
                 .into(searchImage)
+
+            searchTitle.text = item.title
+            searchId.text = item.channelTitle
+            searchView.text=item.description
+
         }
     }
 

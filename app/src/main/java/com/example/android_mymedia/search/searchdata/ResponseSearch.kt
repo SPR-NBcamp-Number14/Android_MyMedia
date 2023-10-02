@@ -1,4 +1,4 @@
-package com.example.android_mymedia.searchdata
+package com.example.android_mymedia.search.searchdata
 
 
 data class ResponseSearch(
@@ -8,6 +8,7 @@ data class ResponseSearch(
 data class SearchItem(
     val kind: String,
     val id: Videoid,
+    val channelTitle:String,
     val snippet: SearchSnippet,
 )
 data class Videoid(
