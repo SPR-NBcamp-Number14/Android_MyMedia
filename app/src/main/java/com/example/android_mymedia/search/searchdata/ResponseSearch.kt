@@ -1,18 +1,24 @@
 package com.example.android_mymedia.search.searchdata
 
+import com.google.gson.annotations.SerializedName
+
 
 data class ResponseSearch(
     val items: List<SearchItem>
 )
 
 data class SearchItem(
+    @SerializedName("kind")
     val kind: String,
+    @SerializedName("id")
     val id: Videoid,
-    val channelTitle:String,
+    @SerializedName("channelTitle")
+    val channelTitle:String?,
+    @SerializedName("snippet")
     val snippet: SearchSnippet,
 )
 data class Videoid(
-    val videoId:String,
+    val videoId:String?,
 )
 
 data class SearchSnippet(

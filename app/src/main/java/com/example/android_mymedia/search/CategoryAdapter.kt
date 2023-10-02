@@ -44,7 +44,11 @@ class CategoryAdapter(
         private val onClicked: (ButtonModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ButtonModel) = with(binding) {
+            searchCategory.text = item.btnTitle
 
+            searchCategory.setOnClickListener {
+                onClicked(item)
+            }
         }
     }
 }

@@ -16,8 +16,8 @@ class SearchViewModel(
 ) : ViewModel() {
 
 
-    private val _searchsList: MutableLiveData<List<SearchListModel>> = MutableLiveData()
-    val searchList: LiveData<List<SearchListModel>> get() = _searchsList
+    private val _searchsList: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
+    val searchList: MutableLiveData<List<SearchListModel>?> get() = _searchsList
     private var currentQuery: String = ""
 
     fun searchWithQuery(query: String) {

@@ -4,25 +4,39 @@ import android.util.Log
 import com.example.android_mymedia.home.data.model.ButtonModel
 import com.example.android_mymedia.retrofit.RetrofitClient
 import com.example.android_mymedia.search.searchdata.SearchListModel
+import java.lang.Exception
 
 class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepository {
+    override suspend fun getPopularVideo(
+        token: String?,
+        category: String
+    ): Pair<List<SearchListModel>, String> {
+        TODO("Not yet implemented")
+    }
 
-    override suspend fun getSearch(query: String): List<SearchListModel> {
+    override suspend fun getSearch(query: String): List<SearchListModel>? {
         val responseSearch = RetrofitClient.api.getSearch(q = query) // 검색어를 전달
         val responseSearchList = responseSearch.items
 
-        val resultList = responseSearchList.map { searchItem ->
-            SearchListModel(
-                id = searchItem.id.videoId,
-                imgUrl = searchItem.snippet.thumbnails.default.url,
-                title = searchItem.snippet.title,
-                description = searchItem.snippet.description,
-                channelTitle = searchItem.channelTitle ?:"NoChannel Title"
-            )
-        }
+        val resultList =
+            try {
+                responseSearchList.map { searchItem ->
+                    SearchListModel(
+                        id = searchItem.id.videoId ?: "" ,
+                        imgUrl = searchItem.snippet.thumbnails.default.url,
+                        title = searchItem.snippet.title,
+                        description = searchItem.snippet.description ?: "no",
+                        channelTitle = searchItem.channelTitle ?: ""
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("sh","getSearch $e")
+                null
 
+            }
         return resultList
     }
+
     suspend fun getCategory(): List<ButtonModel> {
         val responseCategory = client.api.getCategory()
         Log.d("카테고리", responseCategory.items.toString())

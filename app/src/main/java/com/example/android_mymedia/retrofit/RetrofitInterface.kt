@@ -35,7 +35,6 @@ interface RetrofitInterface {
         @Query("order") order: String = "date",
         @Query("q") q: String,
         @Query("videoType") videoType: String = "any",
-        @Query("type") type: String = "channel,playlist,video",
         @Query("key") apiKey: String = API
     ): ResponseSearch
 

@@ -41,7 +41,6 @@ class SearchAdapter() : ListAdapter<SearchListModel, SearchAdapter.ViewHolder>(
 
             searchTitle.text = item.title
             searchId.text = item.channelTitle
-            searchView.text=item.description
 
         }
     }
