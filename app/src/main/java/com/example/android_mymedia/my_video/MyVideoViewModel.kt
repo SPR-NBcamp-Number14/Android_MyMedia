@@ -21,6 +21,7 @@ class MyVideoViewModel(
             for (i in 0..4) {
                 add(
                     DetailModel(
+                        id = "",
                         videoUrl = "",
                         mediumImgUrl = "",
                         highImgUrl = "",

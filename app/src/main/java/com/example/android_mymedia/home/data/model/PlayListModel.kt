@@ -22,6 +22,7 @@ data class PlayListModel(
 
 fun PlayListModel.toDetail(): DetailModel {
     return DetailModel(
+        id = id,
         videoUrl = videoUrl,
         mediumImgUrl = mediumImgUrl,
         highImgUrl = highImgUrl,
