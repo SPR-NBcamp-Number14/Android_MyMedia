@@ -1,9 +1,5 @@
 package com.example.android_mymedia.searchdata
 
-import com.example.android_mymedia.home.data.Localized
-import com.example.android_mymedia.home.data.ThumbnailDetails
-import com.example.android_mymedia.home.data.VideoSnippet
-
 
 data class ResponseSearch(
     val items: List<SearchItem>

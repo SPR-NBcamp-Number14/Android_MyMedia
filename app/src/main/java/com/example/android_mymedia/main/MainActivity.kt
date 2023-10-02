@@ -1,5 +1,6 @@
 package com.example.android_mymedia.main
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
@@ -18,13 +19,23 @@ class MainActivity : AppCompatActivity() {
 
         initView()
 
+
     }
+
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//        applicationContext.resources.configuration.locale
+//    }
+    // 질문 1. 언어가 바뀐 다면 -> livedata로 관리하기
+    //
+
     private fun initView() = with(binding) {
         //스와이프 금지
         mainViewpager.run {
             isUserInputEnabled = false
         }
         mainViewpager.adapter = viewPagerAdapter
+        mainViewpager.offscreenPageLimit = 2
 
         //뷰페이저 네비게이션바 연결
         mainViewpager.registerOnPageChangeCallback(

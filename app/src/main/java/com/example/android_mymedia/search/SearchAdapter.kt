@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.SearchItemListBinding
-import com.example.android_mymedia.home.data.PlayListModel
 import com.example.android_mymedia.searchdata.SearchListModel
 
 

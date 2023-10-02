@@ -1,7 +1,7 @@
-package com.example.android_mymedia.home.data
+package com.example.android_mymedia.home.data.model
 
 import android.os.Parcelable
-import com.example.android_mymedia.searchdata.SearchListModel
+import com.example.android_mymedia.detail.DetailModel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -19,3 +19,13 @@ data class PlayListModel(
     val likeCount: String?, // 동영상 좋아요 수
     val commentCount: String?, // 동영상 댓글 수
 ) : Parcelable
+
+fun PlayListModel.toDetail(): DetailModel {
+    return DetailModel(
+        videoUrl = videoUrl,
+        imgUrl = highImgUrl,
+        title = title,
+        channelTitle = channelTitle,
+        description = description
+    )
+}

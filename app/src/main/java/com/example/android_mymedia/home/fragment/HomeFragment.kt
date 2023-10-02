@@ -1,4 +1,4 @@
-package com.example.android_mymedia.home
+package com.example.android_mymedia.home.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_mymedia.databinding.HomeFragmentBinding
+import com.example.android_mymedia.home.adapter.BtnsAdapter
+import com.example.android_mymedia.home.viewmdoel.HomeViewModel
+import com.example.android_mymedia.home.viewmdoel.HomeViewModelFactory
 import com.example.android_mymedia.home.adapter.VideoAdapter
 
 
@@ -26,6 +29,14 @@ class HomeFragment : Fragment() {
 
     private val videoAdapter by lazy {
         VideoAdapter()
+    }
+    private val btnsAdapter by lazy {
+        BtnsAdapter(
+            onClicked = { item ->
+                reset()
+                setCategory(item.category)
+            }
+        )
     }
 
     override fun onCreateView(
@@ -45,6 +56,11 @@ class HomeFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
+
+        //버튼 RecyclerView
+        homeRvBtnsList.adapter = btnsAdapter
+
+        //메인 RecyclerView
         homeRvVideoList.adapter = videoAdapter
         homeRvVideoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -57,8 +73,6 @@ class HomeFragment : Fragment() {
 
                 val isAtEndOfList = visibleItemCount + firstVisibleItemPosition >= totalItemCount
 
-//                !homeRvVideoList.canScrollHorizontally(1)
-
                 if (isAtEndOfList) {
 
                     getNextPage() // 주석 시 홈 api 사용 x
@@ -66,6 +80,7 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+
     }
 
     private fun initViewModel() {
@@ -74,6 +89,7 @@ class HomeFragment : Fragment() {
                 if (it != null) {
                     videoAdapter.submitList(it.toList())
                     Log.d("리스폰", categoryList.value.toString())
+                    binding.homeRvVideoList.scrollToPosition(0)
                 }
             }
             pageToken.observe(viewLifecycleOwner) {
@@ -82,17 +98,13 @@ class HomeFragment : Fragment() {
                     //호출 횟수 테스트용 observe
                 }
             }
-            loading.observe(viewLifecycleOwner) {
-                if (it != null) { // 뷰 모델이 자바로 구성되어 있기 때문. 그런 경우 방어 코딩을 해줘야함.
-
-                    if (it == true) {
-                        //로딩 화면을 구현할 예정
-                    } else {
-                        //로딩 화면을 지우는 로직 구성 해야함
-                    }
-
+            btnList.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    btnsAdapter.submitList(it)
+                    Log.d("버튼.뷰모델.리스트", it.toString())
                 }
             }
+
         }
     }
 
@@ -100,5 +112,12 @@ class HomeFragment : Fragment() {
         viewModel.setNextPage()
     }
 
+    private fun setCategory(category: String) = with(viewModel) {
+        viewModel.setCategory(category)
+    }
+
+    private fun reset() = with(viewModel){
+        viewModel.reset()
+    }
 
 }
