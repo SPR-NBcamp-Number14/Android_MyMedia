@@ -103,6 +103,9 @@ class DetailActivity : AppCompatActivity() {
                     R.drawable.ic_heart_drawable,
                     0
                 )
+                CoroutineScope(Dispatchers.IO).launch {
+                    db!!.VideoDAO().deleteVideoById(data!!.id)
+                }
                 Toast.makeText(this, "좋아요 리스트에서 삭제되었습니다.", Toast.LENGTH_LONG).show()
             } else {
                 binding.detailBtnLike.setBackgroundResource(R.drawable.clicked_confirm_like_button)
@@ -112,6 +115,9 @@ class DetailActivity : AppCompatActivity() {
                     R.drawable.ic_heart_filled_drawable,
                     0
                 )
+                CoroutineScope(Dispatchers.IO).launch {
+                    db!!.VideoDAO().insertVideo(videoInfo)
+                }
                 Toast.makeText(this, "좋아요 리스트에 추가되었습니다.", Toast.LENGTH_LONG).show()
             }
             isLiked = !isLiked
