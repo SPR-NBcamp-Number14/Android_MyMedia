@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/search_image"
+        android:id="@+id/my_video_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -21,8 +21,8 @@
         android:text="제목일거임"
         android:textSize="25dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/search_image"
-        app:layout_constraintTop_toTopOf="@+id/search_image" />
+        app:layout_constraintStart_toEndOf="@+id/my_video_image"
+        app:layout_constraintTop_toTopOf="@+id/my_video_image" />
 
     <TextView
         android:id="@+id/textView"
@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:text="채널 이름?"
         android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/search_image"
+        app:layout_constraintStart_toEndOf="@+id/my_video_image"
         app:layout_constraintTop_toBottomOf="@+id/search_title" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_marginTop="6dp"
         android:text="views"
         android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/search_image"
+        app:layout_constraintStart_toEndOf="@+id/my_video_image"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
