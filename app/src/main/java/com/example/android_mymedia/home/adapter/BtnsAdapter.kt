@@ -1,5 +1,6 @@
 package com.example.android_mymedia.home.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -46,7 +47,14 @@ class BtnsAdapter(
             homeCategoryTvTitle.text = item.btnTitle
 
             homeCategoryTvTitle.setOnClickListener {
-                onClicked(item)
+                homeCategoryTvTitle.isSelected = !homeCategoryTvTitle.isSelected
+                if (homeCategoryTvTitle.isSelected) {
+                    onClicked(item)
+                    homeCategoryTvTitle.setTextColor(Color.GRAY)
+                } else {
+                    homeCategoryTvTitle.setTextColor(Color.WHITE)
+                }
+
             }
         }
     }
