@@ -46,7 +46,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-        detailIvThumbnail.load(loadData.imgUrl)
+        detailIvThumbnail.load(loadData.highImgUrl)
 
         detailTvTitle.text = loadData.title
         detailTvChannelName.text = loadData.channelTitle

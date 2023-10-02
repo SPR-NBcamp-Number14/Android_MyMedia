@@ -6,7 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DetailModel(
     val videoUrl: String,
-    val imgUrl: String,
+    val mediumImgUrl: String,
+    val highImgUrl: String,
     val title: String,
     val channelTitle: String,
     val description: String,
