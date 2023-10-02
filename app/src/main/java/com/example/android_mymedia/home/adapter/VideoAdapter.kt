@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
 import com.example.android_mymedia.detail.DetailActivity
-import com.example.android_mymedia.home.data.model.PlayListModel
-import com.example.android_mymedia.home.data.model.toDetail
+import com.example.android_mymedia.home.data.PlayListModel
+import com.example.android_mymedia.unit.Unit
 import com.example.android_mymedia.unit.Unit.setViewCountFormat
 
 class VideoAdapter(
@@ -59,7 +59,7 @@ class VideoAdapter(
 
             itemView.setOnClickListener {
                 Intent(context, DetailActivity::class.java).apply {
-                    putExtra(DetailActivity.EXTRA_DATA, item.toDetail())
+                    putExtra(Unit.OBJECT_DATA, item)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { context.startActivity(this) }
             }
