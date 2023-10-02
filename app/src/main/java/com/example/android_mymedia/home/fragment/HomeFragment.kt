@@ -30,11 +30,15 @@ class HomeFragment : Fragment() {
     private val videoAdapter by lazy {
         VideoAdapter()
     }
+
     private val btnsAdapter by lazy {
         BtnsAdapter(
             onClicked = { item ->
+
                 reset()
                 setCategory(item.category)
+                binding.homeRvVideoList.scrollToPosition(0)
+
             }
         )
     }
@@ -89,7 +93,9 @@ class HomeFragment : Fragment() {
                 if (it != null) {
                     videoAdapter.submitList(it.toList())
                     Log.d("리스폰", categoryList.value.toString())
-                    binding.homeRvVideoList.scrollToPosition(0)
+                    if (it.toList().size == 10){
+                        binding.homeRvVideoList.scrollToPosition(0)
+                    }
                 }
             }
             pageToken.observe(viewLifecycleOwner) {
@@ -116,7 +122,7 @@ class HomeFragment : Fragment() {
         viewModel.setCategory(category)
     }
 
-    private fun reset() = with(viewModel){
+    private fun reset() = with(viewModel) {
         viewModel.reset()
     }
 
