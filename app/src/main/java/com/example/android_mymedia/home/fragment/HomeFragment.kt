@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
 
     private val btnsAdapter by lazy {
         BtnsAdapter(
-            onClicked = { item ->
+            onClicked = { item->
 
                 reset()
                 setCategory(item.category)
