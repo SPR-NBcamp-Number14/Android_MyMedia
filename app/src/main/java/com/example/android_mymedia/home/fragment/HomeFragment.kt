@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
         BtnsAdapter(
             onClicked = { item ->
                 setCategory(item.category)
-
             }
         )
     }
@@ -80,7 +79,6 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
 
     }
 
