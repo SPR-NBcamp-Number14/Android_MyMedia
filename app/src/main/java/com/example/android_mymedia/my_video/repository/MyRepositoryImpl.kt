@@ -11,7 +11,7 @@ class MyRepositoryImpl(
 
     private val dataBase = VideoDatabase.getInstance(context)
     private val videoDAO = dataBase?.VideoDAO()
-    override suspend fun getLivedata(): List<VideoEntity> {
+    override fun getLivedata(): LiveData<List<VideoEntity>> {
         if (videoDAO == null) {
             throw IllegalStateException("videoDAO is not initialized")
         }
