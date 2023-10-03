@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_mymedia.databinding.MyVideoItemListBinding
-import com.example.android_mymedia.detail.DetailModel
+import com.example.android_mymedia.room.VideoEntity
 
-class MyVideoAdapter() : ListAdapter<DetailModel, MyVideoAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<DetailModel>() {
-        override fun areItemsTheSame(oldItem: DetailModel, newItem: DetailModel): Boolean {
+class MyVideoAdapter() : ListAdapter<VideoEntity, MyVideoAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<VideoEntity>() {
+        override fun areItemsTheSame(oldItem: VideoEntity, newItem: VideoEntity): Boolean {
             return oldItem.videoUrl == newItem.videoUrl
         }
 
-        override fun areContentsTheSame(oldItem: DetailModel, newItem: DetailModel): Boolean {
+        override fun areContentsTheSame(oldItem: VideoEntity, newItem: VideoEntity): Boolean {
             return oldItem == newItem
         }
 
@@ -38,7 +38,7 @@ class MyVideoAdapter() : ListAdapter<DetailModel, MyVideoAdapter.ViewHolder>(
     class ViewHolder(
         private val binding: MyVideoItemListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:DetailModel){
+        fun bind(item:VideoEntity){
 
         }
     }
