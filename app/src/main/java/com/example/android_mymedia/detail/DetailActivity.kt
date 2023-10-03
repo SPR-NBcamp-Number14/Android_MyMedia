@@ -25,11 +25,11 @@ class DetailActivity : AppCompatActivity() {
 
     private var isLiked = false
 
-    private val data: DetailModel? by lazy {
+    private val data: VideoEntity? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(EXTRA_DATA, DetailModel::class.java)
+            intent.getParcelableExtra(EXTRA_DATA, VideoEntity::class.java)
         } else {
-            intent.getParcelableExtra<DetailModel>(EXTRA_DATA)
+            intent.getParcelableExtra<VideoEntity>(EXTRA_DATA)
         }
     }
 
@@ -41,7 +41,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (data == null) return
 
-        val loadData = data as DetailModel
+        val loadData = data as VideoEntity
 
         CoroutineScope(Dispatchers.IO).launch {
             val videoId = db?.VideoDAO()?.getVideoById(data!!.id)
@@ -69,16 +69,8 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        val videoInfo = VideoEntity(
-            data!!.id,
-            data!!.videoUrl,
-            data!!.highImgUrl,
-            data!!.title,
-            data!!.channelTitle,
-            data!!.description
-        )
 
-        Log.d("videoInfo", "${videoInfo}")
+        Log.d("videoInfo", "${loadData}")
 
         binding.detailIbBackButton.setOnClickListener {
             finish()
@@ -116,7 +108,7 @@ class DetailActivity : AppCompatActivity() {
                     0
                 )
                 CoroutineScope(Dispatchers.IO).launch {
-                    db!!.VideoDAO().insertVideo(videoInfo)
+                    db!!.VideoDAO().insertVideo(loadData)
                 }
                 Toast.makeText(this, "좋아요 리스트에 추가되었습니다.", Toast.LENGTH_LONG).show()
             }
