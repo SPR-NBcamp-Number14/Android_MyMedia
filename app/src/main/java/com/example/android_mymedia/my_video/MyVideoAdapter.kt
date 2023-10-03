@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.android_mymedia.databinding.MyVideoItemListBinding
 import com.example.android_mymedia.room.VideoEntity
 
@@ -38,8 +39,9 @@ class MyVideoAdapter() : ListAdapter<VideoEntity, MyVideoAdapter.ViewHolder>(
     class ViewHolder(
         private val binding: MyVideoItemListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:VideoEntity){
-
+        fun bind(item: VideoEntity) = with(binding) {
+            myVideoImage.load(item.highImgUrl)
+            myVideoName.text = item.title
         }
     }
 }
