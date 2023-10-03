@@ -6,13 +6,15 @@ import com.example.android_mymedia.room.VideoDatabase
 import com.example.android_mymedia.room.VideoEntity
 
 class MyRepositoryImpl(
-    private val dataBase : VideoDatabase?
+    private val context: Context,
 ) : MyRepository {
 
-
-    override fun getAllVideo(): LiveData<List<VideoEntity>> {
-        val videoDAO = dataBase?.VideoDAO() ?: throw IllegalStateException("videoDAO is not initialized")
-
+    private val dataBase = VideoDatabase.getInstance(context)
+    private val videoDAO = dataBase?.VideoDAO()
+    override suspend fun getLivedata(): List<VideoEntity> {
+        if (videoDAO == null) {
+            throw IllegalStateException("videoDAO is not initialized")
+        }
         return videoDAO.getAllVideo()
     }
 
