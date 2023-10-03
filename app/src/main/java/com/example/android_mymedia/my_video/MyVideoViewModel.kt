@@ -14,21 +14,7 @@ import kotlinx.coroutines.launch
 class MyVideoViewModel(
     private val repository: MyRepository
 ) : ViewModel() {
-    private val _liveBookMarkList: MutableLiveData<List<VideoEntity>> = MutableLiveData()
-    val liveBookMarkList: LiveData<List<VideoEntity>> get() = _liveBookMarkList
-
-    init {
-        setLiveData()
-    }
-
-    fun setLiveData() {
-        viewModelScope.launch {
-            val videoList = repository.getLivedata()
-            val currentList = liveBookMarkList.value.orEmpty().toMutableList()
-            currentList.addAll(videoList)
-            _liveBookMarkList.value = currentList
-        }
-    }
+    val liveBookMarkList: LiveData<List<VideoEntity>> get() = repository.getLivedata()
 
 }
 

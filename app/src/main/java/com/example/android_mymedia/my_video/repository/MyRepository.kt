@@ -5,5 +5,5 @@ import com.example.android_mymedia.room.VideoEntity
 
 interface MyRepository {
 
-    suspend fun getLivedata() : List<VideoEntity>
+    fun getLivedata() : LiveData<List<VideoEntity>>
 }
