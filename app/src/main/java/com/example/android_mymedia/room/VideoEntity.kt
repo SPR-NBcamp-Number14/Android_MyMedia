@@ -11,6 +11,7 @@ data class VideoEntity(
     @PrimaryKey
     val id: String, //동영상 고유 id
     val videoUrl: String, //동영상 url
+    val mediumImgUrl: String,
     val highImgUrl: String, //동영상 이미지 high
     val title: String, // 동영상 제목
     val channelTitle : String,
