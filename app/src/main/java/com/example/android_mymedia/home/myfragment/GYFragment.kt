@@ -24,17 +24,12 @@ class GYFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
     }
 
     private fun initView() = with(binding) {
 
     }
-
-    //재생 목록을 받아올건데
-    //음악 재생 목록을 받아올거고
-    //저에 대한 프로필을 추가
-    //굉장히 정신 없는 애니메이션을 마구잡이로 넣을 것
-
 
 
 }
