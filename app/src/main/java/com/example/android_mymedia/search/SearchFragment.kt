@@ -27,16 +27,14 @@ class SearchFragment : Fragment() {
     private val categoryAdapter by lazy {
         CategoryAdapter(
             onClicked = { item ->
-                reset()
                 viewModel.getSearchWithCategory(item.category)
-                binding.searchRecyclerview.scrollToPosition(0)
             }
         )
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
         binding.searchBtn.setOnClickListener {
             val query = binding.edSearch.text.toString()
@@ -71,27 +69,11 @@ class SearchFragment : Fragment() {
                 if (it != null) {
                     categoryAdapter.submitList(it)
                     Log.d("리스폰", searchCategory.value.toString())
-                    if (it.size == 10){
-                        binding.searchRecyclerview.scrollToPosition(0)
-                    }
-                }
-            }
-            searchCategory.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    categoryAdapter.submitList(it)
-                    Log.d("shh", it.toString())
                 }
             }
         }
     }
 
-    private fun reset() = with(viewModel) {
-        reset()
-    }
-    private fun setSearchQuery(category: String) = with(viewModel){
-        setSearchQuery(category)
-        searchWithQuery(category)
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
