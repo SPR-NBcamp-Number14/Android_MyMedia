@@ -77,7 +77,13 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-        binding.detailIvThumbnail.load(loadData.highImgUrl)
+        lifecycle.addObserver(binding.detailYoutubeplayer)
+        binding.detailYoutubeplayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                val youtubeVideo = loadData.id
+                youTubePlayer.cueVideo(youtubeVideo, 0F)
+            }
+        })
 
         binding.detailTvTitle.text = loadData.title
         binding.detailTvChannelName.text = loadData.channelTitle
