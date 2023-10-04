@@ -11,6 +11,8 @@ import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.DetailActivityBinding
 import com.example.android_mymedia.room.VideoDatabase
 import com.example.android_mymedia.room.VideoEntity
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -77,7 +79,13 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-        binding.detailIvThumbnail.load(loadData.highImgUrl)
+        lifecycle.addObserver(binding.detailYoutubeplayer)
+        binding.detailYoutubeplayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                val youtubeVideo = data!!.id
+                youTubePlayer.cueVideo(youtubeVideo, 0F)
+            }
+        })
 
         binding.detailTvTitle.text = loadData.title
         binding.detailTvChannelName.text = loadData.channelTitle
@@ -116,7 +124,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.detailBtnShare.setOnClickListener {
-            shareUrl("testData")
+            shareUrl(data!!.videoUrl)
         }
     }
 
