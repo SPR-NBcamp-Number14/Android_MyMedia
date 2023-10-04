@@ -15,8 +15,6 @@ import com.example.android_mymedia.home.data.model.ButtonModel
 
 
 class SearchFragment : Fragment() {
-
-
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -26,14 +24,13 @@ class SearchFragment : Fragment() {
     private val searchAdapter by lazy {
         SearchAdapter()
     }
-
     private val categoryAdapter by lazy {
         CategoryAdapter(
-
             onClicked = { item ->
                 reset()
                 setCategory(item.category)
-                binding.categoryRecyclerView.scrollToPosition(0)
+                setSearchQuery(item.category)
+                binding.searchRecyclerview.scrollToPosition(0)
             }
         )
     }
@@ -42,7 +39,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
-
         binding.searchBtn.setOnClickListener {
             val query = binding.edSearch.text.toString()
             viewModel.searchWithQuery(query)
@@ -50,18 +46,13 @@ class SearchFragment : Fragment() {
         binding.searchEndBtn.setOnClickListener{
             binding.edSearch.text.clear()
         }
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        initAdap()
-
         initView()
-
         Log.d("SearchFragment", "searchAdapter: $searchAdapter")
         Log.d("SearchFragment", "categoryAdapter: $categoryAdapter")
     }
@@ -69,9 +60,6 @@ class SearchFragment : Fragment() {
     private fun initView() = with(binding) {
         searchRecyclerview.adapter = searchAdapter
         searchRecyclerview.layoutManager=LinearLayoutManager(requireContext())
-
-    }
-    private fun initAdap() = with(binding){
         categoryRecyclerView.adapter=categoryAdapter
     }
     private fun initViewModel() {
@@ -89,22 +77,27 @@ class SearchFragment : Fragment() {
                     }
                 }
             }
-
+            searchCategory.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    categoryAdapter.submitList(it)
+                    Log.d("shh", it.toString())
+                }
+            }
         }
     }
-
     private fun setCategory(category: String) = with(viewModel) {
         viewModel.setCategory(category)
     }
-
     private fun reset() = with(viewModel) {
         reset()
     }
+    private fun setSearchQuery(category: String) = with(viewModel){
+        setSearchQuery(category)
+        searchWithQuery(category)
 
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

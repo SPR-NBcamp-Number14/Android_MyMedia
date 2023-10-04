@@ -33,12 +33,7 @@ class SearchViewModel(
     //선택한 카테고리를 저장할 MutableLiveData
     private val _searchCategory: MutableLiveData<List<ButtonModel>> = MutableLiveData()
     val searchCategory: LiveData<List<ButtonModel>> get() = _searchCategory
-
-
-
     init {
-
-
         _searchCategory.value = mutableListOf<ButtonModel>().apply {
             add(
                 ButtonModel(
@@ -48,10 +43,7 @@ class SearchViewModel(
             )
         }
         setBtnSearch()
-
     }
-
-
     fun searchWithQuery(query: String) {
         currentQuery = query
         viewModelScope.launch {
@@ -59,25 +51,16 @@ class SearchViewModel(
             _searchsList.value = list
         }
     }
-
     private fun setBtnSearch() {
         viewModelScope.launch {
             val currentList = searchCategory.value.orEmpty().toMutableList()
             val responseList = repository.getCategory() ?: return@launch
-
             currentList.addAll(responseList)
-
             _searchCategory.value = currentList
         }
     }
-
-
     fun setCategory(category: String) {
         viewModelScope.launch {
-
-
-
-
             // 수정된 API 엔드포인트 사용
             val response = repository.getSearch(query = category)
 
@@ -92,24 +75,20 @@ class SearchViewModel(
 
             _categoryList.value = currentList
             _searchQuery.value = updateCategory
-
         }
     }
-
     fun reset() {
-
         _categoryList.value = null
         _searchQuery.value = null
     }
 
-
+    fun setSearchQuery(query: String){
+        _searchQuery.value = query
+    }
 }
-
-
 class SearchViewModelFactory(
 
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
             return SearchViewModel(
