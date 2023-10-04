@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
-import com.example.android_mymedia.detail.DetailActivity
 import com.example.android_mymedia.home.data.model.PlayListModel
-import com.example.android_mymedia.home.data.model.toVideoEntity
 import com.example.android_mymedia.unit.Unit.setViewCountFormat
 
 class VideoAdapter(

@@ -18,6 +18,7 @@ class HomeViewModel(
     private val repository: HomeRepository
 ) : ViewModel() {
 
+    // 이벤트 관리
     private val _event: SingleLiveEvent<HomeClickEvent> = SingleLiveEvent()
     val event: LiveData<HomeClickEvent> get() = _event
 
