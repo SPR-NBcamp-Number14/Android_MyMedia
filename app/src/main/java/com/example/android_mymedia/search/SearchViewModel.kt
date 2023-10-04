@@ -18,7 +18,6 @@ class SearchViewModel(
 ) : ViewModel() {
 
 
-
     private val _searchsList: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
     val searchList: MutableLiveData<List<SearchListModel>?> get() = _searchsList
 
@@ -26,21 +25,28 @@ class SearchViewModel(
     val categoryList: LiveData<List<ButtonModel>> get() = _categoryList
     private var currentQuery: String = ""
 
+    //버튼 카테고리
+    private val _btnList: MutableLiveData<List<ButtonModel>> = MutableLiveData()
+
+    val btnList: LiveData<List<ButtonModel>> get() = _btnList
+
+    private val _relatedCategories: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
+    val relatedCategories: MutableLiveData<List<SearchListModel>?> get() = _relatedCategories
+
     init {
-        setCategory()
-    }
 
-    private fun setCategory() {
-        viewModelScope.launch {
-            val currentList = categoryList.value.orEmpty().toMutableList()
-            val responseList = repository.getCategory()
 
-            currentList.addAll(responseList)
-
-            _categoryList.value = currentList
+        _btnList.value = mutableListOf<ButtonModel>().apply {
+            add(
+                ButtonModel(
+                    category = "0",
+                    btnTitle = "전체"
+                )
+            )
         }
-
+        setBtnList()
     }
+
 
     fun searchWithQuery(query: String) {
         currentQuery = query
@@ -51,17 +57,18 @@ class SearchViewModel(
     }
 
 
-    fun searchWithCategory(item: ButtonModel) {
+
+    private fun setBtnList() {
         viewModelScope.launch {
-            _searchsList.value = null
-            val responseList = repository.getSearchWithCategory(currentQuery, item.category)
-            val currentList = searchList.value.orEmpty().toMutableList()
-            if (responseList != null) {
-                currentList.addAll(responseList)
-            }
-            _searchsList.value = currentList
+            val currentList = btnList.value.orEmpty().toMutableList()
+            val responseList = repository.getCategory() ?: return@launch
+
+            currentList.addAll(responseList)
+
+            _btnList.value = currentList
         }
     }
+
 
 }
 

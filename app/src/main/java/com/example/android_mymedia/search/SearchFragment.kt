@@ -1,6 +1,7 @@
 package com.example.android_mymedia.search
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class SearchFragment : Fragment() {
         CategoryAdapter(
             onClicked = { buttonModel ->
                 searchWithCategory(buttonModel)
+                binding.categoryRecyclerView.scrollToPosition(0)
             }
         )
     }
@@ -42,8 +44,11 @@ class SearchFragment : Fragment() {
         binding.searchBtn.setOnClickListener {
             val query = binding.edSearch.text.toString()
             viewModel.searchWithQuery(query)
-
         }
+        binding.searchEndBtn.setOnClickListener{
+            binding.edSearch.text.clear()
+        }
+
 
         return binding.root
     }
@@ -52,18 +57,37 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initView()
+
+        Log.d("SearchFragment", "searchAdapter: $searchAdapter")
+        Log.d("SearchFragment", "categoryAdapter: $categoryAdapter")
     }
 
     private fun initView() = with(binding) {
         searchRecyclerview.adapter = searchAdapter
         searchRecyclerview.layoutManager=LinearLayoutManager(requireContext())
+
+        categoryRecyclerView.adapter=categoryAdapter
+        categoryRecyclerView.layoutManager=LinearLayoutManager(requireContext())
     }
     private fun initViewModel() {
         with(viewModel) {
             searchList.observe(viewLifecycleOwner) {
                 searchAdapter.submitList(it)
+                Log.d("SearchFragment", "searchList updated: $it")
             }
-
+            relatedCategories.observe(viewLifecycleOwner) {
+                    relatedCategoriesList ->
+                relatedCategoriesList?.let { searchList ->
+                    val buttonModelList = searchList.map { searchItem ->
+                        ButtonModel(
+                            category = searchItem.id,
+                            btnTitle = searchItem.title
+                        )
+                    }
+                    categoryAdapter.submitList(buttonModelList)
+                    Log.d("SearchFragment", "relatedCategories updated: $buttonModelList")
+                }
+            }
         }
     }
 
@@ -71,7 +95,10 @@ class SearchFragment : Fragment() {
         viewModel.searchWithCategory(item)
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 
 }
