@@ -10,10 +10,11 @@ class HomeRepositoryImpl(
 ) : HomeRepository {
     override suspend fun getPopularVideo(
         token: String?,
-        category: String
+        category: String?
     ): Pair<List<PlayListModel>, String> {
 
-        val responseVideo = client.api.getVideo(pageToken = token, videoCategoryId = category)
+        val responseVideo =
+            client.api.getVideo(pageToken = token, videoCategoryId = category ?: "0")
         val nextToken = responseVideo.nextPageToken
         val responseVideoList = responseVideo.items
 

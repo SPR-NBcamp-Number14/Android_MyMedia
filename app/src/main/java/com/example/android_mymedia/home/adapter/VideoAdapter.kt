@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
-import com.example.android_mymedia.detail.DetailActivity
 import com.example.android_mymedia.home.data.model.PlayListModel
-import com.example.android_mymedia.home.data.model.toVideoEntity
 import com.example.android_mymedia.unit.Unit.setViewCountFormat
 
 class VideoAdapter(
-
+    private val onItemClicked: (PlayListModel) -> Unit
 ) : ListAdapter<PlayListModel, VideoAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<PlayListModel>() {
         override fun areItemsTheSame(oldItem: PlayListModel, newItem: PlayListModel): Boolean {
@@ -32,7 +30,7 @@ class VideoAdapter(
         return ViewHolder(
             HomeVideoItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
+            ),onItemClicked
         )
     }
 
@@ -42,9 +40,9 @@ class VideoAdapter(
     }
 
     class ViewHolder(
-        private val binding: HomeVideoItemBinding
+        private val binding: HomeVideoItemBinding,
+        private val onItemClick: (PlayListModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        private val context = binding.root.context
         fun bind(item: PlayListModel) = with(binding) {
             var viewCount = item.viewCount
             if (item.viewCount != null) {
@@ -58,10 +56,7 @@ class VideoAdapter(
             homeVideoItemTvDatetime.text = item.publishAt
 
             itemView.setOnClickListener {
-                Intent(context, DetailActivity::class.java).apply {
-                    putExtra(DetailActivity.EXTRA_DATA, item.toVideoEntity())
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }.run { context.startActivity(this) }
+                onItemClick(item)
             }
         }
     }
