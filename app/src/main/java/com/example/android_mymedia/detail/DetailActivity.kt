@@ -35,19 +35,17 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val db = VideoDatabase.getInstance(applicationContext)
-
         binding = DetailActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (data == null) return
-
+        val db = VideoDatabase.getInstance(applicationContext) ?: return
         val loadData = data as VideoEntity
 
         CoroutineScope(Dispatchers.IO).launch {
-            val videoId = db?.VideoDAO()?.getVideoById(data!!.id)
+            val videoId = db.VideoDAO().getVideoById(loadData.id)
 
             withContext(Dispatchers.Main) {
-                if (videoId!!.isNotEmpty()) {
+                if (videoId.isNotEmpty()) {
                     binding.detailBtnLike.setBackgroundResource(R.drawable.clicked_confirm_like_button)
                     binding.detailBtnLike.setCompoundDrawablesWithIntrinsicBounds(
                         0,
@@ -96,7 +94,7 @@ class DetailActivity : AppCompatActivity() {
                     0
                 )
                 CoroutineScope(Dispatchers.IO).launch {
-                    db!!.VideoDAO().deleteVideoById(data!!.id)
+                    db.VideoDAO().deleteVideoById(loadData.id)
                 }
                 Toast.makeText(this, "좋아요 리스트에서 삭제되었습니다.", Toast.LENGTH_LONG).show()
             } else {
@@ -108,7 +106,7 @@ class DetailActivity : AppCompatActivity() {
                     0
                 )
                 CoroutineScope(Dispatchers.IO).launch {
-                    db!!.VideoDAO().insertVideo(loadData)
+                    db.VideoDAO().insertVideo(loadData)
                 }
                 Toast.makeText(this, "좋아요 리스트에 추가되었습니다.", Toast.LENGTH_LONG).show()
             }
@@ -116,7 +114,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.detailBtnShare.setOnClickListener {
-            shareUrl("testData")
+            shareUrl(loadData.videoUrl)
         }
     }
 
