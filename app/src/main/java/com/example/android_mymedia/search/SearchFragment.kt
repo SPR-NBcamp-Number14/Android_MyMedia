@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.Coil.reset
 import com.example.android_mymedia.databinding.SearchFragmentBinding
 import com.example.android_mymedia.home.adapter.BtnsAdapter
+import com.example.android_mymedia.home.data.model.ButtonModel
 
 
 class SearchFragment : Fragment() {
@@ -25,20 +26,13 @@ class SearchFragment : Fragment() {
         SearchAdapter()
     }
 
-/*    private val SearchAdapter by lazy {
-        BtnsAdapter(
-            onClicked = { item ->
-                reset()
-                setCategory(item.category)
+    private val categoryAdapter by lazy {
+        CategoryAdapter(
+            onClicked = { buttonModel ->
+                searchWithCategory(buttonModel)
             }
         )
-    }*/
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,8 +67,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-  /*  private fun setCategory(category: String) = with(viewModel) {
-        viewModel.setCategory(category)
-    }*/
+    private fun searchWithCategory(item : ButtonModel){
+        viewModel.searchWithCategory(item)
+    }
+
+
+
 
 }
