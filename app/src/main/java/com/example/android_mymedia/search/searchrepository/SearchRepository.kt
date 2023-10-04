@@ -5,6 +5,6 @@ import com.example.android_mymedia.search.searchdata.SearchListModel
 
 interface SearchRepository {
     suspend fun getSearch(query: String): List<SearchListModel>?
-    suspend fun getCategory(): List<ButtonModel>?
-
+    suspend fun getCategory(): List<ButtonModel>
+    suspend fun getSearchWithCategory(query: String, category: String): List<SearchListModel>?
 }
