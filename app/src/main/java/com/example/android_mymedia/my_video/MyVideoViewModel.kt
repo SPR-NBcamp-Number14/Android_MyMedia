@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class MyVideoViewModel(
     private val repository: MyRepository
 ) : ViewModel() {
-    val liveBookMarkList: LiveData<List<VideoEntity>> get() = repository.getLivedata()
+    val liveBookMarkList: LiveData<List<VideoEntity>> get() = repository.getAllVideo()
 
 }
 
