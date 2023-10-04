@@ -56,8 +56,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        initAdap()
-
         initView()
 
         Log.d("SearchFragment", "searchAdapter: $searchAdapter")
@@ -67,10 +65,8 @@ class SearchFragment : Fragment() {
     private fun initView() = with(binding) {
         searchRecyclerview.adapter = searchAdapter
         searchRecyclerview.layoutManager=LinearLayoutManager(requireContext())
-
-    }
-    private fun initAdap() = with(binding){
         categoryRecyclerView.adapter=categoryAdapter
+
     }
     private fun initViewModel() {
         with(viewModel) {
@@ -78,11 +74,11 @@ class SearchFragment : Fragment() {
                 searchAdapter.submitList(it)
                 Log.d("SearchFragment", "searchList updated: $it")
             }
-            categoryList.observe(viewLifecycleOwner) {
+            btnList.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    searchAdapter.submitList(it.toList())
-                    Log.d("리스폰", categoryList.value.toString())
-                    if (it.toList().size == 10){
+                    categoryAdapter.submitList(it)
+                    Log.d("리스폰", btnList.value.toString())
+                    if (it.size == 10){
                         binding.searchRecyclerview.scrollToPosition(0)
                     }
                 }
