@@ -51,5 +51,31 @@ class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepositor
         }
     }
 
+    override suspend fun getSearchWithCategory(query: String, category: String): List<SearchListModel>? {
+        val reponseSearch =
+            RetrofitClient.api.getSearchCategory(q =  query, videoCategoryId = category)
+        val responseSearchList = reponseSearch.items
+
+        val result =
+            try{
+                responseSearchList.map{ searchItem ->
+                SearchListModel(
+                    id = searchItem.id.videoId?:"",
+                    imgUrl = searchItem.snippet.thumbnails.default.url,
+                    title = searchItem.snippet.title,
+                    description = searchItem.snippet.description?:"no",
+                    channelTitle = searchItem.channelTitle?:"",
+                    url = searchItem.snippet.thumbnails.default.url
+                )
+
+                }
+            }catch (e:Exception){
+                Log.e("sh","getsearch $e")
+                null
+            }
+        return result
+
     }
+
+}
 

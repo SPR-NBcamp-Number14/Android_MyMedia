@@ -28,8 +28,7 @@ class SearchFragment : Fragment() {
         CategoryAdapter(
             onClicked = { item ->
                 reset()
-                setCategory(item.category)
-                setSearchQuery(item.category)
+                viewModel.getSearchWithCategory(item.category)
                 binding.searchRecyclerview.scrollToPosition(0)
             }
         )
@@ -85,16 +84,13 @@ class SearchFragment : Fragment() {
             }
         }
     }
-    private fun setCategory(category: String) = with(viewModel) {
-        viewModel.setCategory(category)
-    }
+
     private fun reset() = with(viewModel) {
         reset()
     }
     private fun setSearchQuery(category: String) = with(viewModel){
         setSearchQuery(category)
         searchWithQuery(category)
-
     }
     override fun onDestroyView() {
         super.onDestroyView()

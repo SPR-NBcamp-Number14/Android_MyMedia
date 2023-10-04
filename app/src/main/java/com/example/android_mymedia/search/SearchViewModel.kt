@@ -59,31 +59,25 @@ class SearchViewModel(
             _searchCategory.value = currentList
         }
     }
-    fun setCategory(category: String) {
-        viewModelScope.launch {
-            // 수정된 API 엔드포인트 사용
-            val response = repository.getSearch(query = category)
-
-            val list = response ?: emptyList() // 검색 결과가 null이면 빈 리스트 반환
-            var currentList = categoryList.value.orEmpty().toMutableList()
-            var updateCategory = searchQuery.value.orEmpty()
-            updateCategory = category
-
-            currentList.clear() // 리스트를 초기화
-
-            currentList.addAll(list) // 현재 리스트에 검색 결과 추가
-
-            _categoryList.value = currentList
-            _searchQuery.value = updateCategory
-        }
-    }
     fun reset() {
         _categoryList.value = null
-        _searchQuery.value = null
     }
 
     fun setSearchQuery(query: String){
         _searchQuery.value = query
+    }
+    fun getSearchWithCategory(category: String){
+        viewModelScope.launch {
+            val query = searchQuery.value ?: ""
+            val searcher = repository.getSearchWithCategory(query, category)
+            val currentList = searchList.value.orEmpty().toMutableList()//문법 적인
+            if(
+                searcher != null
+            ){
+                currentList.addAll(searcher)
+            }
+            _searchsList.value = currentList
+        }
     }
 }
 class SearchViewModelFactory(
