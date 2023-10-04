@@ -2,15 +2,13 @@ package com.example.android_mymedia.my_video
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.example.android_mymedia.my_video.repository.MyRepository
 import com.example.android_mymedia.my_video.repository.MyRepositoryImpl
 import com.example.android_mymedia.room.VideoDatabase
 import com.example.android_mymedia.room.VideoEntity
-import kotlinx.coroutines.launch
+
 
 class MyVideoViewModel(
     private val repository: MyRepository
