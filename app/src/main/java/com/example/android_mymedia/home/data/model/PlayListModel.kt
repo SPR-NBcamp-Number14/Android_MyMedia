@@ -1,10 +1,10 @@
 package com.example.android_mymedia.home.data.model
 
 import android.os.Parcelable
-import com.example.android_mymedia.detail.DetailModel
+import com.example.android_mymedia.room.VideoEntity
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+
 data class PlayListModel(
     val id: String, //동영상 고유 id
     val videoUrl: String, //동영상 url
@@ -18,10 +18,10 @@ data class PlayListModel(
     val viewCount: String?, // 동영상 조회수
     val likeCount: String?, // 동영상 좋아요 수
     val commentCount: String?, // 동영상 댓글 수
-) : Parcelable
+)
 
-fun PlayListModel.toDetail(): DetailModel {
-    return DetailModel(
+fun PlayListModel.toVideoEntity(): VideoEntity {
+    return VideoEntity(
         id = id,
         videoUrl = videoUrl,
         mediumImgUrl = mediumImgUrl,

@@ -48,14 +48,7 @@ class BtnsAdapter(
             homeCategoryTvTitle.text = item.btnTitle
 
             homeCategoryTvTitle.setOnClickListener {
-                homeCategoryTvTitle.isSelected = !homeCategoryTvTitle.isSelected
-                if (homeCategoryTvTitle.isSelected) {
                     onClicked(item)
-                    homeCategoryTvTitle.setTextColor(Color.GRAY)
-                } else {
-                    homeCategoryTvTitle.setTextColor(Color.WHITE)
-                }
-
             }
         }
 

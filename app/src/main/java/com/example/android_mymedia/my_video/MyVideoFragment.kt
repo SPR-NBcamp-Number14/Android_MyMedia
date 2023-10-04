@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android_mymedia.databinding.MyVideoFragmentBinding
+import com.example.android_mymedia.room.VideoDAO
 
 
 class MyVideoFragment : Fragment() {
@@ -18,8 +19,10 @@ class MyVideoFragment : Fragment() {
     private val myVideoAdapter by lazy {
         MyVideoAdapter()
     }
+
     private val viewModel by lazy {
-        ViewModelProvider(this@MyVideoFragment)[MyVideoViewModel::class.java]
+        ViewModelProvider(this@MyVideoFragment,
+            MyVideoViewModelFactory(requireContext()))[MyVideoViewModel::class.java]
     }
 
 
