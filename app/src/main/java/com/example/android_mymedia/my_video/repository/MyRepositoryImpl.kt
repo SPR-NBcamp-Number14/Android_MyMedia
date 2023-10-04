@@ -10,7 +10,7 @@ class MyRepositoryImpl(
 ) : MyRepository {
 
 
-    override fun getLivedata(): LiveData<List<VideoEntity>> {
+    override fun getAllVideo(): LiveData<List<VideoEntity>> {
         val videoDAO = dataBase?.VideoDAO() ?: throw IllegalStateException("videoDAO is not initialized")
 
         return videoDAO.getAllVideo()
