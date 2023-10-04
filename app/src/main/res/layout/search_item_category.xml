@@ -5,15 +5,17 @@
     android:layout_height="wrap_content">
 
 
-    <Button
+    <TextView
         android:id="@+id/search_category"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/border_search_bar"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="5dp"
         android:backgroundTint="#3B3B3B"
         android:textColor="#ffffff"
-        android:text="@string/all"
-        android:textSize="23sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

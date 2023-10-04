@@ -40,7 +40,7 @@ class SearchAdapter() : ListAdapter<SearchListModel, SearchAdapter.ViewHolder>(
                 .into(searchImage)
 
             searchTitle.text = item.title
-            searchId.text = item.channelTitle
+            searchId.text = item.description
 
         }
     }

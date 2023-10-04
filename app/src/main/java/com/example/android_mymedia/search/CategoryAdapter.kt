@@ -1,5 +1,6 @@
 package com.example.android_mymedia.search
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -49,6 +50,7 @@ class CategoryAdapter(
             searchCategory.setOnClickListener {
                 onClicked(item)
             }
+            Log.d("CategoryAdapter", "ButtonModel: $item")
         }
     }
 }

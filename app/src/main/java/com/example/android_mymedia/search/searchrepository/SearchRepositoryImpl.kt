@@ -62,29 +62,7 @@ class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepositor
 
     //카테고리 값만 토큰은 삭제, 카테고리 리스트 리셋해서 사용
 
-    override suspend fun getSearchWithCategory(query: String, category: String): List<SearchListModel>? {
-        val responseSearch =
-            RetrofitClient.api.getSearchCategory(q = query, videoCategoryId = category) // 검색어를 전달
-        val responseSearchList = responseSearch.items
 
-        val resultList =
-            try {
-                responseSearchList.map { searchItem ->
-                    SearchListModel(
-                        id = searchItem.id.videoId ?: "",
-                        imgUrl = searchItem.snippet.thumbnails.default.url,
-                        title = searchItem.snippet.title,
-                        description = searchItem.snippet.description ?: "no",
-                        channelTitle = searchItem.channelTitle ?: ""
-                    )
-                }
-            } catch (e: Exception) {
-                Log.e("sh", "getSearch $e")
-                null
-
-            }
-        return resultList
-    }
 
 
 
