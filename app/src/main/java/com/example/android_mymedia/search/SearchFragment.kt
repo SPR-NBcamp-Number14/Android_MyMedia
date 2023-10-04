@@ -29,7 +29,9 @@ class SearchFragment : Fragment() {
 
     private val categoryAdapter by lazy {
         CategoryAdapter(
+
             onClicked = { item ->
+                reset()
                 setCategory(item.category)
                 binding.categoryRecyclerView.scrollToPosition(0)
             }
@@ -78,11 +80,11 @@ class SearchFragment : Fragment() {
                 searchAdapter.submitList(it)
                 Log.d("SearchFragment", "searchList updated: $it")
             }
-            categoryList.observe(viewLifecycleOwner) {
+            searchCategory.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    searchAdapter.submitList(it.toList())
-                    Log.d("리스폰", categoryList.value.toString())
-                    if (it.toList().size == 10){
+                    categoryAdapter.submitList(it)
+                    Log.d("리스폰", searchCategory.value.toString())
+                    if (it.size == 10){
                         binding.searchRecyclerview.scrollToPosition(0)
                     }
                 }
@@ -93,6 +95,10 @@ class SearchFragment : Fragment() {
 
     private fun setCategory(category: String) = with(viewModel) {
         viewModel.setCategory(category)
+    }
+
+    private fun reset() = with(viewModel) {
+        reset()
     }
 
     override fun onDestroyView() {

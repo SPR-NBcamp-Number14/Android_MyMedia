@@ -17,29 +17,29 @@ class SearchViewModel(
     private val repository: SearchRepository
 ) : ViewModel() {
 
-
+    //검색 결과를 저장한 mutableLiveData
     private val _searchsList: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
     val searchList: MutableLiveData<List<SearchListModel>?> get() = _searchsList
 
-    private val _categoryList: MutableLiveData<List<SearchListModel>> = MutableLiveData()
-    val categoryList: LiveData<List<SearchListModel>> get() = _categoryList
+    //검색 카테고리 목록을 저장할 MutableLiveData
+    private val _categoryList: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
+    val categoryList: LiveData<List<SearchListModel>?> get() = _categoryList
     private var currentQuery: String = ""
 
-    //버튼 카테고리
-    private val _btnList: MutableLiveData<List<ButtonModel>> = MutableLiveData()
+    // 검색 쿼리를 저장할 MutableLiveData
+    private val _searchQuery: MutableLiveData<String?> = MutableLiveData()
+    val searchQuery: LiveData<String?> get() = _searchQuery
 
-    val btnList: LiveData<List<ButtonModel>> get() = _btnList
+    //선택한 카테고리를 저장할 MutableLiveData
+    private val _searchCategory: MutableLiveData<List<ButtonModel>> = MutableLiveData()
+    val searchCategory: LiveData<List<ButtonModel>> get() = _searchCategory
 
-    private val _relatedCategories: MutableLiveData<List<SearchListModel>?> = MutableLiveData()
-    val relatedCategories: MutableLiveData<List<SearchListModel>?> get() = _relatedCategories
 
-    private val _liveCategory: MutableLiveData<String?> = MutableLiveData()
-    val liveCategory: LiveData<String?> get() = _liveCategory
 
     init {
 
 
-        _btnList.value = mutableListOf<ButtonModel>().apply {
+        _searchCategory.value = mutableListOf<ButtonModel>().apply {
             add(
                 ButtonModel(
                     category = "0",
@@ -62,12 +62,12 @@ class SearchViewModel(
 
     private fun setBtnSearch() {
         viewModelScope.launch {
-            val currentList = btnList.value.orEmpty().toMutableList()
+            val currentList = searchCategory.value.orEmpty().toMutableList()
             val responseList = repository.getCategory() ?: return@launch
 
             currentList.addAll(responseList)
 
-            _btnList.value = currentList
+            _searchCategory.value = currentList
         }
     }
 
@@ -75,32 +75,31 @@ class SearchViewModel(
     fun setCategory(category: String) {
         viewModelScope.launch {
 
+
+
+
             // 수정된 API 엔드포인트 사용
             val response = repository.getSearch(query = category)
 
             val list = response ?: emptyList() // 검색 결과가 null이면 빈 리스트 반환
             var currentList = categoryList.value.orEmpty().toMutableList()
+            var updateCategory = searchQuery.value.orEmpty()
+            updateCategory = category
 
             currentList.clear() // 리스트를 초기화
 
             currentList.addAll(list) // 현재 리스트에 검색 결과 추가
 
             _categoryList.value = currentList
-            _liveCategory.value = category
+            _searchQuery.value = updateCategory
+
         }
     }
 
+    fun reset() {
 
-
-    private fun setBtnList() {
-        viewModelScope.launch {
-            val currentList = btnList.value.orEmpty().toMutableList()
-            val responseList = repository.getCategory() ?: return@launch
-
-            currentList.addAll(responseList)
-
-            _btnList.value = currentList
-        }
+        _categoryList.value = null
+        _searchQuery.value = null
     }
 
 

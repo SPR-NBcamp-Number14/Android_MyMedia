@@ -53,4 +53,3 @@ class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepositor
 
     }
 
-    //카테고리 값만 토큰은 삭제, 카테고리 리스트 리셋해서 사용
