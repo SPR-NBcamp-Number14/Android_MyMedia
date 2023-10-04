@@ -27,7 +27,6 @@ class HomeViewModel(
     val categoryList: LiveData<Set<PlayListModel>?> get() = _categoryList
 
     //다음 페이지 판안 여부 토큰
-
     private val _pageToken: MutableLiveData<String?> = MutableLiveData()
     val pageToken: LiveData<String?> get() = _pageToken
 

@@ -17,7 +17,6 @@ import com.example.android_mymedia.home.viewmdoel.HomeViewModel
 import com.example.android_mymedia.home.viewmdoel.HomeViewModelFactory
 import com.example.android_mymedia.home.adapter.VideoAdapter
 import com.example.android_mymedia.home.data.model.PlayListModel
-import com.example.android_mymedia.home.data.model.toVideoEntity
 import com.example.android_mymedia.home.viewmdoel.HomeClickEvent
 
 
@@ -127,9 +126,10 @@ class HomeFragment : Fragment() {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         }.run { requireContext().startActivity(this) }
                     }
-                }
-            }
 
+                }
+
+            }
         }
     }
 
