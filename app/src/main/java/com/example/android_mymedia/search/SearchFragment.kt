@@ -29,8 +29,8 @@ class SearchFragment : Fragment() {
 
     private val categoryAdapter by lazy {
         CategoryAdapter(
-            onClicked = { buttonModel ->
-                searchWithCategory(buttonModel)
+            onClicked = { item ->
+                setCategory(item.category)
                 binding.categoryRecyclerView.scrollToPosition(0)
             }
         )
@@ -56,6 +56,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        initAdap()
+
         initView()
 
         Log.d("SearchFragment", "searchAdapter: $searchAdapter")
@@ -66,8 +68,9 @@ class SearchFragment : Fragment() {
         searchRecyclerview.adapter = searchAdapter
         searchRecyclerview.layoutManager=LinearLayoutManager(requireContext())
 
+    }
+    private fun initAdap() = with(binding){
         categoryRecyclerView.adapter=categoryAdapter
-        categoryRecyclerView.layoutManager=LinearLayoutManager(requireContext())
     }
     private fun initViewModel() {
         with(viewModel) {
@@ -75,24 +78,21 @@ class SearchFragment : Fragment() {
                 searchAdapter.submitList(it)
                 Log.d("SearchFragment", "searchList updated: $it")
             }
-            relatedCategories.observe(viewLifecycleOwner) {
-                    relatedCategoriesList ->
-                relatedCategoriesList?.let { searchList ->
-                    val buttonModelList = searchList.map { searchItem ->
-                        ButtonModel(
-                            category = searchItem.id,
-                            btnTitle = searchItem.title
-                        )
+            categoryList.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    searchAdapter.submitList(it.toList())
+                    Log.d("리스폰", categoryList.value.toString())
+                    if (it.toList().size == 10){
+                        binding.searchRecyclerview.scrollToPosition(0)
                     }
-                    categoryAdapter.submitList(buttonModelList)
-                    Log.d("SearchFragment", "relatedCategories updated: $buttonModelList")
                 }
             }
+
         }
     }
 
-    private fun searchWithCategory(item : ButtonModel){
-        viewModel.searchWithCategory(item)
+    private fun setCategory(category: String) = with(viewModel) {
+        viewModel.setCategory(category)
     }
 
     override fun onDestroyView() {

@@ -20,7 +20,8 @@ class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepositor
                         imgUrl = searchItem.snippet.thumbnails.default.url,
                         title = searchItem.snippet.title,
                         description = searchItem.snippet.description ?: "no",
-                        channelTitle = searchItem.channelTitle ?: ""
+                        channelTitle = searchItem.channelTitle ?: "",
+                        url = searchItem.snippet.thumbnails.default.url
                     )
                 }
             } catch (e: Exception) {
@@ -31,42 +32,25 @@ class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepositor
         return resultList
     }
 
-    override suspend fun getCategory(): List<ButtonModel> {
-        val responseCategory = client.api.getCategory()
-        Log.d("카테고리", responseCategory.items.toString())
-        val responseList = responseCategory.items ?: return emptyList()
+    override suspend fun getCategory(): List<ButtonModel>? {
+        try {
+            val responseCategory = client.api.getCategory()
+            val responseList = responseCategory.items ?: return null
 
-        val resultList: List<ButtonModel> =
-            responseList
-                .filter { categoryItems ->
+            val resultList: List<ButtonModel> = responseList.map { categoryItems ->
+                ButtonModel(
+                    category = categoryItems.id,
+                    btnTitle = categoryItems.snippet.title ?: "오류"
+                )
+            }
 
-                    categoryItems.snippet.assignable &&
-                            categoryItems.id != "19" &&
-                            categoryItems.id != "27"
+            return resultList
+        } catch (e: Exception) {
+            Log.e("SearchRepository", "getCategory error: $e")
+            return null
+        }
+    }
 
-                }
-                .map { categoryItems ->
-
-                    ButtonModel(
-                        category = categoryItems.id,
-                        btnTitle = categoryItems.snippet.title ?: "오류"
-
-                    )
-                }
-        // 여행하고 교육이 404 에러가 남(카테고리 19,27)
-
-        Log.d("버튼.리스트", resultList.toString())
-
-        return resultList
     }
 
     //카테고리 값만 토큰은 삭제, 카테고리 리스트 리셋해서 사용
-
-
-
-
-
-
-
-
-}
