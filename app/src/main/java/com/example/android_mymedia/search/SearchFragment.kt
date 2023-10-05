@@ -48,13 +48,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
-        binding.searchBtn.setOnClickListener {
-            val query = binding.edSearch.text.toString()
-            viewModel.searchWithQuery(query)
-        }
-        binding.searchEndBtn.setOnClickListener {
-            binding.edSearch.text.clear()
-        }
         return binding.root
     }
 
@@ -70,6 +63,14 @@ class SearchFragment : Fragment() {
         searchRecyclerview.adapter = searchAdapter
         searchRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         categoryRecyclerView.adapter = categoryAdapter
+
+        searchBtn.setOnClickListener {
+            val query = binding.edSearch.text.toString()
+            viewModel.searchWithQuery(query)
+        }
+        searchEndBtn.setOnClickListener {
+            binding.edSearch.text.clear()
+        }
     }
 
     private fun initViewModel() {
