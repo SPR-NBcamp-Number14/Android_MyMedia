@@ -1,5 +1,6 @@
 package com.example.android_mymedia.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,8 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.Coil.reset
 import com.example.android_mymedia.databinding.SearchFragmentBinding
+import com.example.android_mymedia.detail.DetailActivity
 import com.example.android_mymedia.home.adapter.BtnsAdapter
 import com.example.android_mymedia.home.data.model.ButtonModel
+import com.example.android_mymedia.search.searchdata.toVideoEntity
 
 
 class SearchFragment : Fragment() {
@@ -19,18 +22,27 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by lazy {
-        ViewModelProvider(this,SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
     private val searchAdapter by lazy {
-        SearchAdapter()
+        SearchAdapter(
+            onItemClicked = { searchListModel ->
+                val item = searchListModel.toVideoEntity()
+                Intent(requireContext(), DetailActivity::class.java).apply {
+                    putExtra(DetailActivity.EXTRA_DATA, item)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run { requireContext().startActivity(this) }
+            }
+        )
     }
     private val categoryAdapter by lazy {
         CategoryAdapter(
             onClicked = { item ->
-                viewModel.getSearchWithCategory(item.category)
+                searchWithCategory(item)
             }
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +52,7 @@ class SearchFragment : Fragment() {
             val query = binding.edSearch.text.toString()
             viewModel.searchWithQuery(query)
         }
-        binding.searchEndBtn.setOnClickListener{
+        binding.searchEndBtn.setOnClickListener {
             binding.edSearch.text.clear()
         }
         return binding.root
@@ -56,9 +68,10 @@ class SearchFragment : Fragment() {
 
     private fun initView() = with(binding) {
         searchRecyclerview.adapter = searchAdapter
-        searchRecyclerview.layoutManager=LinearLayoutManager(requireContext())
-        categoryRecyclerView.adapter=categoryAdapter
+        searchRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        categoryRecyclerView.adapter = categoryAdapter
     }
+
     private fun initViewModel() {
         with(viewModel) {
             searchList.observe(viewLifecycleOwner) {
@@ -72,6 +85,10 @@ class SearchFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun searchWithCategory(item: ButtonModel) = with(viewModel) {
+        getSearchWithCategory(item.category)
     }
 
     override fun onDestroyView() {
