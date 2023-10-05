@@ -34,10 +34,22 @@ interface RetrofitInterface {
         @Query("regionCode") region: String = "KR",
         @Query("maxResults") maxResults: Int = 20,
         @Query("order") order: String = "date",
-        @Query("q") q: String,
+        @Query("q") q: String, //검색어는 유지 카테고리 값으로 재검색
         @Query("videoType") videoType: String = "any",
         @Query("type") type: String = "channel,playlist,video",
         @Query("key") apiKey: String = API
     ): ResponseSearch
 
+    @GET("search")
+    suspend fun getSearchCategory(
+        @Query("part") part: String = "snippet",
+        @Query("regionCode") region: String = "KR",
+        @Query("maxResults") maxResults: Int = 20,
+        @Query("order") order: String = "date",
+        @Query("q") q: String,
+        @Query("videoType") videoType: String = "any",
+        @Query("type") type: String = "video",
+        @Query("key") apiKey: String = API,
+        @Query("videoCategoryId") videoCategoryId: String,
+    ): ResponseSearch
 }

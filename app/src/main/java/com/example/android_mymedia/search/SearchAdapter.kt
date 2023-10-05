@@ -36,11 +36,11 @@ class SearchAdapter() : ListAdapter<SearchListModel, SearchAdapter.ViewHolder>(
         private val context = binding.root.context
         fun bind(item: SearchListModel) = with(binding){
             Glide.with(context)
-                .load(item.imgUrl.toUri())
+                .load(item.defaultImgUrl.toUri())
                 .into(searchImage)
 
             searchTitle.text = item.title
-            searchId.text = item.channelTitle
+            searchId.text = item.description
 
         }
     }
