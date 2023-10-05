@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import coil.load
 import com.example.android_mymedia.R
 import com.example.android_mymedia.databinding.DetailActivityBinding
 import com.example.android_mymedia.room.VideoDatabase
