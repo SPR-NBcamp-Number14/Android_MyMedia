@@ -101,20 +101,6 @@ class HomeFragment : Fragment() {
             if (lastItemPosition() <= -1) return@setOnClickListener
             homeRvVideoList.scrollToPosition(lastItemPosition())
         }
-        val btns = arrayOf(
-            homeIvBtnTop,
-            homeIvBtnBottom
-        )
-
-        homeIvBtnMenu.setOnClickListener {
-            isMenuClicked = !isMenuClicked
-            Log.d("메뉴 클릭", isMenuClicked.toString())
-            if (isMenuClicked) {
-                btns.forEach { it.visibility = View.VISIBLE }
-            } else {
-                btns.forEach { it.visibility = View.INVISIBLE }
-            }
-        }
 
     }
 
