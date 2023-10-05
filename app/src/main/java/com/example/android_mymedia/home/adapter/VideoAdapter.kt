@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.android_mymedia.databinding.HomeVideoItemBinding
 import com.example.android_mymedia.home.data.model.PlayListModel
+import com.example.android_mymedia.unit.Unit.dateTimeFormat
 import com.example.android_mymedia.unit.Unit.setViewCountFormat
 
 class VideoAdapter(
@@ -50,10 +51,12 @@ class VideoAdapter(
             }
             homeVideoItemIvThumbnail.load(item.highImgUrl)
 
+            val datetime = dateTimeFormat(item.publishAt)
+
             homeVideoItemTvTitle.text = item.title
             homeVideoItemChannelTitle.text = item.channelTitle
             homeVideoIteViewCount.text = "조회수 ${viewCount}회"
-            homeVideoItemTvDatetime.text = item.publishAt
+            homeVideoItemTvDatetime.text = datetime
 
             itemView.setOnClickListener {
                 onItemClick(item)

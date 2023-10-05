@@ -1,9 +1,9 @@
 package com.example.android_mymedia.unit
 
 import com.example.android_mymedia.BuildConfig
-import java.text.SimpleDateFormat
-import java.util.TimeZone
-
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 object Unit {
@@ -25,6 +25,24 @@ object Unit {
         }
 
         return resultFormat
+    }
+
+    fun dateTimeFormat(inputDatetime: String): String? {
+        try {
+            val formatter = DateTimeFormatter.ISO_DATE_TIME
+            val dateTime = LocalDateTime.parse(inputDatetime, formatter)
+            val min = if (dateTime.minute != 0) "${dateTime.minute}분" else ""
+            val resultDatetime =
+                "${dateTime.year}년" +
+                        " ${dateTime.monthValue}월 " +
+                        "${dateTime.dayOfMonth}일 " +
+                        "${dateTime.hour}시 $min"
+
+            return resultDatetime
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
+        }
     }
 
 
