@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/search_fragment_scene"
     tools:context=".search.SearchFragment">
 
     <EditText
@@ -13,8 +14,8 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/border_search_bar"
         android:backgroundTint="#111010"
-        android:gravity="center"
         android:ems="10"
+        android:gravity="center"
         android:inputType="text"
         android:text=""
         android:textColor="#ffffff"
@@ -49,7 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@color/black"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,4 +72,4 @@
         tools:listitem="@layout/search_item_list" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
