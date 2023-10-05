@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/home_fragment_scene"
     tools:context=".home.fragment.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,5 +29,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_rv_btns_list" />
 
+    <ImageView
+        android:id="@+id/home_iv_btn_top"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_background_circle"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/ic_arrow_top"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/home_iv_btn_bottom"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/home_iv_btn_bottom"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_background_circle"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/ic_arrow_bottom"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/home_iv_btn_menu"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/home_iv_btn_menu"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_background_circle"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/ic_cross"
+        android:rotation="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

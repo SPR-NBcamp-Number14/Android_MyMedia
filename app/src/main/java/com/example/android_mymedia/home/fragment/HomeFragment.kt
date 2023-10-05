@@ -23,6 +23,7 @@ import com.example.android_mymedia.home.viewmdoel.HomeClickEvent
 class HomeFragment : Fragment() {
 
     private var _binding: HomeFragmentBinding? = null
+    private var isMenuClicked: Boolean = false
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider(
@@ -93,6 +94,14 @@ class HomeFragment : Fragment() {
             }
         })
 
+        homeIvBtnTop.setOnClickListener {
+            homeRvVideoList.scrollToPosition(0)
+        }
+        homeIvBtnBottom.setOnClickListener {
+            if (lastItemPosition() <= -1) return@setOnClickListener
+            homeRvVideoList.scrollToPosition(lastItemPosition())
+        }
+
     }
 
     private fun initViewModel() {
@@ -147,6 +156,11 @@ class HomeFragment : Fragment() {
 
     private fun toDetail(item: PlayListModel) = with(viewModel) {
         onClickItemForDetail(item)
+    }
+
+    private fun lastItemPosition(): Int = with(viewModel) {
+        val size = categoryList.value?.size ?: 0
+        return size - 2
     }
 
 }
