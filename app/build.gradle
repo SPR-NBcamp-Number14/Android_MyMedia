@@ -2,7 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 android {
     namespace 'com.example.android_mymedia'
@@ -16,9 +20,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "YOUTUBE_API_KEY", localProperties.getProperty('api.key'))
+        manifestPlaceholders["youtube_key"] = localProperties.getProperty('api.key')
     }
 
     buildTypes {
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -31,40 +39,47 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
 dependencies {
+    //
+    implementation'io.coil-kt:coil:2.4.0'
+    //youtube v3 data
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev20230904-2.0.0'
     //gson
-    implementation'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     //glide
-    implementation'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
 
     //retrofit2
-    implementation'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //okhttp
-    implementation'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 
     // viewmodel 및 lifecycle
     // 유튜브 api
-    implementation'com.android.identity:identity-credential:20230420'
+    implementation 'com.android.identity:identity-credential:20230420'
 
 
     //activityViewmodel
-    implementation'androidx.activity:activity-ktx:1.7.2'
-    implementation'androidx.fragment:fragment-ktx:1.6.1'
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
-    implementation'androidx.lifecycle:lifecycle-viewmodel-ktx:"2.5.1"'
-    implementation'androidx.lifecycle:lifecycle-viewmodel-compose:"2.5.1"'
-    implementation'androidx.lifecycle:lifecycle-livedata-ktx:"2.5.1"'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:"2.5.1"'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:"2.5.1"'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:"2.5.1"'
 
-    implementation'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -73,4 +88,20 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //room
+    def room_version = "2.5.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    //youtube player
+    dependencies {
+        implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+    }
+
+    //Motionlayout
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
 }
