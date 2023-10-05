@@ -87,8 +87,8 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun searchWithCategory(item: ButtonModel) {
-        viewModel.getSearchWithCategory(item.category)
+    private fun searchWithCategory(item: ButtonModel) = with(viewModel) {
+        getSearchWithCategory(item.category)
     }
 
     override fun onDestroyView() {
