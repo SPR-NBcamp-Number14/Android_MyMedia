@@ -41,7 +41,7 @@ class SearchAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-    }
+    }//아이템이 안나올때 주로 봐야할것
 
     class ViewHolder(
         val binding: SearchItemListBinding,
@@ -55,7 +55,7 @@ class SearchAdapter(
 
             searchTitle.text = item.title
             searchId.text = item.description
-
+            //포지션을 찍어보면 리사이클러뷰에 대한 이해도가 UP XML에 만들어줘서 찍어보면 재활용에 대한 이해도가 UP
             itemView.setOnClickListener {
                 onItemClicked(item)
             }

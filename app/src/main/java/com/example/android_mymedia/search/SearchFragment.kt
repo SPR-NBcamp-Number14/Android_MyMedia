@@ -57,6 +57,7 @@ class SearchFragment : Fragment() {
         initView()
         Log.d("SearchFragment", "searchAdapter: $searchAdapter")
         Log.d("SearchFragment", "categoryAdapter: $categoryAdapter")
+        //태그를 걸어서 태그를 통일해서 쓰면 좋을거임
     }
 
     private fun initView() = with(binding) {

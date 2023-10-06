@@ -8,7 +8,26 @@
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
        <KeyFrameSet>
+           <KeyAttribute
+               motion:motionTarget="@+id/b"
+               motion:framePosition="100"
+               android:alpha="0" />
+           <KeyAttribute
+               motion:motionTarget="@+id/b"
+               motion:framePosition="50"
+               android:alpha="0" />
+           <KeyAttribute
+               motion:motionTarget="@+id/b"
+               motion:framePosition="100"
+               android:scaleX="0" />
+           <KeyAttribute
+               motion:motionTarget="@+id/b"
+               motion:framePosition="100"
+               android:scaleY="0" />
        </KeyFrameSet>
+        <OnSwipe
+            motion:touchAnchorId="@+id/b"
+            motion:touchAnchorSide="bottom" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -16,14 +35,8 @@
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:layout_height="match_parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="0dp"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintHorizontal_bias="0.0"
-            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="1dp"
             android:layout_width="match_parent"
-            android:id="@+id/search_recyclerview" />
+            android:id="@+id/b" />
     </ConstraintSet>
 </MotionScene>

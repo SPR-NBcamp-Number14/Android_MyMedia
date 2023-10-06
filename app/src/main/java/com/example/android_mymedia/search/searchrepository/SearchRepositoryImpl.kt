@@ -7,7 +7,7 @@ import com.example.android_mymedia.search.searchdata.SearchListModel
 import java.lang.Exception
 
 class SearchRepositoryImpl(private val client: RetrofitClient) : SearchRepository {
-    override suspend fun getSearch(query: String): List<SearchListModel>? {
+    override suspend fun getSearch(query: String): List<SearchListModel>? { //suspend 지연? 메인 스레드에서 호출해서 쓰이면 안된다.
         val responseSearch =
             RetrofitClient.api.getSearch(q = query) // 검색어를 전달
         val responseSearchList = responseSearch.items
